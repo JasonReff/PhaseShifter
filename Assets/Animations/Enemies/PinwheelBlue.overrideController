@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PinwheelBlue
+  m_Controller: {fileID: 9100000, guid: 19a320c161f83e94a86be5af05590e65, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 4aa4d0689c0eae247aa8c23effde9a9b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4aa4d0689c0eae247aa8c23effde9a9b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4ac9179257fdca249aca23d847b20a86, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c3faa3c523008a649bbe0918b7cb811f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8ff2dcc8a27d33b4f89f79b72ed1d203, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: da66afa341549ce4d94701764f8be181, type: 2}

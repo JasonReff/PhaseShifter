@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b273e551cad93d4e957744206c564f0, type: 3}
+  m_Name: EnemyPools
+  m_EditorClassIdentifier: 
+  _enemyLists:
+  - Enemies:
+    - {fileID: 5807780312107911663, guid: 2ba1120b8a2534741b78d55b90a1fae9, type: 3}
+    - {fileID: 8688443746361238704, guid: c7cf269e6c10e9b4ba369c41d58a1c48, type: 3}
+  - Enemies:
+    - {fileID: 5807780312107911663, guid: 2ba1120b8a2534741b78d55b90a1fae9, type: 3}
+    - {fileID: 5807780312107911663, guid: 2ba1120b8a2534741b78d55b90a1fae9, type: 3}
+    - {fileID: 8688443746361238704, guid: c7cf269e6c10e9b4ba369c41d58a1c48, type: 3}
+  - Enemies:
+    - {fileID: 5807780312107911663, guid: 2ba1120b8a2534741b78d55b90a1fae9, type: 3}
+    - {fileID: 8688443746361238704, guid: c7cf269e6c10e9b4ba369c41d58a1c48, type: 3}
+    - {fileID: 8688443746361238704, guid: c7cf269e6c10e9b4ba369c41d58a1c48, type: 3}
+  - Enemies:
+    - {fileID: 2757969414961687043, guid: b68c85f06f6230e49af80daf2948ba7b, type: 3}
+    - {fileID: 5807780312107911663, guid: 2ba1120b8a2534741b78d55b90a1fae9, type: 3}
+    - {fileID: 8688443746361238704, guid: c7cf269e6c10e9b4ba369c41d58a1c48, type: 3}
+  - Enemies:
+    - {fileID: 2757969414961687043, guid: b68c85f06f6230e49af80daf2948ba7b, type: 3}
+    - {fileID: 2757969414961687043, guid: b68c85f06f6230e49af80daf2948ba7b, type: 3}
+  _allEnemies:
+  - {fileID: 2310253005250001970, guid: 2ba1120b8a2534741b78d55b90a1fae9, type: 3}
+  - {fileID: 6255655052668149726, guid: b68c85f06f6230e49af80daf2948ba7b, type: 3}
+  - {fileID: 577945366324056429, guid: c7cf269e6c10e9b4ba369c41d58a1c48, type: 3}
+  _bossList:
+  - {fileID: 4000561441104813272, guid: 7e691856b1d8c8e4a92c486e3c779516, type: 3}
