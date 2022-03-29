@@ -5,11 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "EnemyPools")]
 public class EnemyPools : ScriptableObject
 {
-    [SerializeField] private List<EnemyList> _enemyLists = new List<EnemyList>();
     [SerializeField] private List<EnemyDifficulty> _allEnemies = new List<EnemyDifficulty>();
     [SerializeField] private List<EnemyDifficulty> _bossList = new List<EnemyDifficulty>();
-
-    public List<EnemyList> EnemyLists { get => _enemyLists; }
     public List<EnemyDifficulty> BossList { get => _bossList; }
 
     public List<EnemyDifficulty> GenerateEnemies(int minimumDifficulty, int maximumDifficulty)

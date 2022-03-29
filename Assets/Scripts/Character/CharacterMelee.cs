@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CharacterMelee : PlayerAttack
 {
-    private bool _dealContactDamage = false;
-    [SerializeField] private float _attackDuration = 1f, _attackSpeed = 1f, _knockback = 2, _chargeTimeMultiplier = 1, _maxChargeTime;
+    [SerializeField] private PlayerHealthController _healthController;
+    [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private CharacterStats _stats;
+    [SerializeField] private PunchStats _punchStats;
 
     public static Action<bool> CanMove;
     public static event Action OnPlayerMelee;
@@ -14,21 +15,24 @@ public class CharacterMelee : PlayerAttack
     public override void Attack(Vector2 attackDirection)
     {
         base.Attack(attackDirection);
-        StopCoroutine(ContactDamage());
-        StartCoroutine(ContactDamage());
+        StartCoroutine(InvulnerabilityCoroutine());
+        StartCoroutine(MoveCoroutine(attackDirection));
         CalculateChargeMultiplier();
-        GetComponent<Rigidbody2D>().AddForce(attackDirection * _attackSpeed * _stats.Stats.MeleeSpeedMultiplier * _chargeTimeMultiplier, ForceMode2D.Impulse);
         OnPlayerMelee?.Invoke();
     }
 
-    private IEnumerator ContactDamage()
+    private IEnumerator InvulnerabilityCoroutine()
     {
-        _dealContactDamage = true;
-        GetComponent<PlayerHealthController>().MakeInvulnerable();
+        _healthController.MakeInvulnerable();
+        yield return new WaitForSeconds(_punchStats.AttackDuration);
+        _healthController.MakeVulnerable();
+    }
+
+    private IEnumerator MoveCoroutine(Vector2 attackDirection)
+    {
         CanMove?.Invoke(false);
-        yield return new WaitForSeconds(_attackDuration);
-        _dealContactDamage = false;
-        GetComponent<PlayerHealthController>().MakeVulnerable();
+        _rb.AddForce(attackDirection * _punchStats.AttackSpeed, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(_punchStats.AttackDuration);
         CanMove?.Invoke(true);
     }
 
@@ -36,23 +40,21 @@ public class CharacterMelee : PlayerAttack
     {
         if (Chargeable)
         {
-            if (ChargeTime > _maxChargeTime)
-                ChargeTime = _maxChargeTime;
-            _chargeTimeMultiplier = 1 + ChargeTime;
+            if (ChargeTime > _punchStats.MaxChargeTime)
+                ChargeTime = _punchStats.MaxChargeTime;
+            _punchStats.ChargeTimeMultiplier = 1 + ChargeTime;
         }
-        else _chargeTimeMultiplier = 1;
+        else _punchStats.ChargeTimeMultiplier = 1;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!_dealContactDamage)
-            return;
-        if (collision.gameObject.TryGetComponent(out EnemyHealth enemyHealth))
+        if (collider.gameObject.TryGetComponent(out EnemyHealth enemyHealth))
         {
             if (enemyHealth.Vulnerable)
             {
                 enemyHealth.TakeDamage(1);
-                enemyHealth.GetComponent<Rigidbody2D>().AddForce(AttackDirection() * _knockback * _stats.Stats.KnockbackMultiplier, ForceMode2D.Impulse);
+                enemyHealth.GetComponent<Rigidbody2D>().AddForce(base.AttackDirection() * _punchStats.Knockback * _stats.Stats.KnockbackMultiplier, ForceMode2D.Impulse);
             }
         }
     }

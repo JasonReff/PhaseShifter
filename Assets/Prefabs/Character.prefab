@@ -1,5 +1,86 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1583506348794111128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2206789339621125662}
+  - component: {fileID: 6010743812405894572}
+  - component: {fileID: 209908755487938794}
+  m_Layer: 10
+  m_Name: MeleeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2206789339621125662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583506348794111128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7557327042617792145}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6010743812405894572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583506348794111128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33fd40171285b447925b8b0a8023c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackTimer: 0
+  Chargeable: 0
+  ChargeTime: 0
+  _animator: {fileID: 1686775758}
+  _attackSound: {fileID: 8300000, guid: da00bc14dab859348bd5bf76b5858e45, type: 3}
+  _weaponStats: {fileID: 11400000, guid: 42208b3560134a949a0a079f506ed059, type: 2}
+  _camera: {fileID: 0}
+  _healthController: {fileID: -9114459203192109826}
+  _rb: {fileID: 7454827895938792662}
+  _stats: {fileID: 11400000, guid: f7e5b0bc694de3c41932b4234390c85a, type: 2}
+  _punchStats: {fileID: 11400000, guid: 42208b3560134a949a0a079f506ed059, type: 2}
+--- !u!61 &209908755487938794
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583506348794111128}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.17226698, y: 0.24514925}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.19167009, y: 0.17841876}
+  m_EdgeRadius: 0
 --- !u!1 &3323335002925523402
 GameObject:
   m_ObjectHideFlags: 0
@@ -4877,10 +4958,9 @@ GameObject:
   - component: {fileID: 7557327042617792142}
   - component: {fileID: 7557327042617792143}
   - component: {fileID: 7557327042617792144}
-  - component: {fileID: 7557327042617792146}
+  - component: {fileID: -6831940818787924325}
   - component: {fileID: 7557327042617792147}
   - component: {fileID: -2979567614709404848}
-  - component: {fileID: 1686775757}
   - component: {fileID: -9114459203192109826}
   - component: {fileID: 7454827895938792662}
   - component: {fileID: 1686775758}
@@ -4903,6 +4983,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 680802344857965837}
+  - {fileID: 2206789339621125662}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5000,7 +5081,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.44276324, y: 0.8973511}
   m_EdgeRadius: 0
---- !u!114 &7557327042617792146
+--- !u!114 &-6831940818787924325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5013,7 +5094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blueAttack: {fileID: 7557327042617792147}
-  _redAttack: {fileID: 1686775757}
+  _redAttack: {fileID: 6010743812405894572}
   _currentAttack: {fileID: 7557327042617792147}
 --- !u!114 &7557327042617792147
 MonoBehaviour:
@@ -5027,12 +5108,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9efe6991def32b04c8d42f0f9985f894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackCooldown: 0.5
   _attackTimer: 0
   Chargeable: 0
   ChargeTime: 0
   _animator: {fileID: 1686775758}
   _attackSound: {fileID: 8300000, guid: 81d2698843fc7d8418df6441a5bd40d1, type: 3}
+  _weaponStats: {fileID: 11400000, guid: aed554741416ceb4cb6e7b00a82ec860, type: 2}
+  _camera: {fileID: 0}
   _projectile: {fileID: 7246102338210532294, guid: cd4270c5d016639418ccd6e4c9c3a718, type: 3}
   _stats: {fileID: 11400000, guid: f7e5b0bc694de3c41932b4234390c85a, type: 2}
 --- !u!114 &-2979567614709404848
@@ -5051,30 +5133,6 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 7557327042617792142}
   _blue: {fileID: 21300000, guid: 3da6486ff2883e048bc042dbc6272eb9, type: 3}
   _red: {fileID: 21300000, guid: 4a37715b540bf8d40bc64eaeb027cf8d, type: 3}
---- !u!114 &1686775757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7557327042617792141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f33fd40171285b447925b8b0a8023c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackCooldown: 1
-  _attackTimer: 0
-  Chargeable: 0
-  ChargeTime: 0
-  _animator: {fileID: 1686775758}
-  _attackSound: {fileID: 8300000, guid: da00bc14dab859348bd5bf76b5858e45, type: 3}
-  _attackDuration: 1
-  _attackSpeed: 10
-  _knockback: 20
-  _chargeTimeMultiplier: 1
-  _maxChargeTime: 3
-  _stats: {fileID: 11400000, guid: f7e5b0bc694de3c41932b4234390c85a, type: 2}
 --- !u!114 &-9114459203192109826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5129,7 +5187,7 @@ Animator:
   m_GameObject: {fileID: 7557327042617792141}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2f5bddfb3c87dbe4e9b93b21f82be64b, type: 2}
+  m_Controller: {fileID: 22100000, guid: 6707e0b48f02ec14c93586a5d3817804, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

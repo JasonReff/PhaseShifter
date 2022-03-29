@@ -2,9 +2,9 @@
 
 public abstract class PlayerAttack : CharacterAttack
 { 
-    private Camera _camera;
+    [SerializeField] private Camera _camera;
 
-    private void Start()
+    private void OnEnable()
     {
         _camera = Camera.main;
     }

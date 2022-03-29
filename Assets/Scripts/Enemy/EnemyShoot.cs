@@ -3,6 +3,7 @@
 public class EnemyShoot : EnemyAttack
 {
     [SerializeField] private Projectile _projectile;
+    [SerializeField] private EnemyShootStats _shotStats;
     public override void Attack(Vector2 attackDirection)
     {
         base.Attack(attackDirection);

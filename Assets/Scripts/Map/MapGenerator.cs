@@ -76,12 +76,20 @@ public class MapGenerator : MonoBehaviour
         var replacedRoom = rooms.First();
         RemoveRoom(replacedRoom);
         _bossRoom = CreateRoom(replacedRoom.Entry.NextRoom, replacedRoom.Entry.NextRoom.Exits.First(t => t.NextRoom == replacedRoom), replacedRoom.Entry.NextRoom.DistanceFromStart, 1, false, true);
+        while (_bossRoom.Exits.Count < 1)
+        {
+            _bossRoom = CreateRoom(replacedRoom.Entry.NextRoom, replacedRoom.Entry.NextRoom.Exits.First(t => t.NextRoom == replacedRoom), replacedRoom.Entry.NextRoom.DistanceFromStart, 1, false, true);
+        }
         _plannedRooms.Add(_bossRoom);
     }
 
     private void CreateEndingRoom()
     {
         var endingRoom = CreateRoom(_bossRoom, _bossRoom.Exits.First(), _bossRoom.DistanceFromStart + 1, 0);
+        while (endingRoom == null)
+        {
+            endingRoom = CreateRoom(_bossRoom, _bossRoom.Exits.First(), _bossRoom.DistanceFromStart + 1, 0);
+        }
         _endingRoom = endingRoom;
         _plannedRooms.Add(_endingRoom);
     }
@@ -124,6 +132,11 @@ public class MapGenerator : MonoBehaviour
     {
         foreach (var room in _plannedRooms.ToList())
         {
+            if (room == null)
+            {
+                _plannedRooms.Remove(room);
+                continue;
+            }
             foreach (var exit in room.Exits)
             {
                 if (exit.NextRoom == null)

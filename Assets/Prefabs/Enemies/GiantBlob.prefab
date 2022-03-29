@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09362de438b668348acf19eda76c4f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackCooldown: 3
   _attackTimer: 3
+  Chargeable: 0
+  ChargeTime: 0
   _animator: {fileID: 3455129781690947654}
   _attackSound: {fileID: 8300000, guid: 60f6e1d47e0281d4b9e20df80a7f23fd, type: 3}
+  _weaponStats: {fileID: 11400000, guid: 6465a35ac194f394180d78ef9bb3f901, type: 2}
   _projectile: {fileID: 7494131337255551982, guid: 0a15289535592e049946c96de118cdde, type: 3}
 --- !u!1001 &1696576890696442090
 PrefabInstance:

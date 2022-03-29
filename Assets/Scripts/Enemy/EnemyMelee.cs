@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class EnemyMelee : EnemyAttack
 {
-    [SerializeField] private float _attackDuration = 0.25f, _attackSpeed, _knockback = 2;
+    [SerializeField] private EnemyMeleeStats _meleeStats;
 
     public override void Attack(Vector2 attackDirection)
     {
         base.Attack(attackDirection);
-        GetComponent<Rigidbody2D>().AddForce(attackDirection * _attackSpeed, ForceMode2D.Impulse);
+        GetComponent<Rigidbody2D>().AddForce(attackDirection * _meleeStats.AttackSpeed, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -18,7 +18,7 @@ public class EnemyMelee : EnemyAttack
             if (playerHealth.Vulnerable)
             {
                 playerHealth.TakeDamage(1);
-                playerHealth.GetComponent<Rigidbody2D>().AddForce(AttackDirection() * _knockback, ForceMode2D.Impulse);
+                playerHealth.GetComponent<Rigidbody2D>().AddForce(AttackDirection() * _meleeStats.Knockback, ForceMode2D.Impulse);
             }
         }
     }

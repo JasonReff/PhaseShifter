@@ -2,12 +2,12 @@
 
 public abstract class CharacterAttack : MonoBehaviour
 {
-    [SerializeField] protected float _attackCooldown;
     [SerializeField] protected float _attackTimer;
     public bool Chargeable;
     public float ChargeTime = 0f;
     [SerializeField] private Animator _animator;
     [SerializeField] private AudioClip _attackSound;
+    [SerializeField] protected WeaponStats _weaponStats;
 
     public virtual void Attack(Vector2 attackDirection)
     {
@@ -24,7 +24,7 @@ public abstract class CharacterAttack : MonoBehaviour
         if (_attackTimer <= 0)
         {
             Attack(AttackDirection());
-            _attackTimer = _attackCooldown;
+            _attackTimer = _weaponStats.AttackCooldown;
             ChargeTime = 0;
         }
     }

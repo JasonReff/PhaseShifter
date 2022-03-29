@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b8390eddb5e304ebfa2cee39982066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackCooldown: 1
   _attackTimer: 1
+  Chargeable: 0
+  ChargeTime: 0
   _animator: {fileID: 5667571729938717504}
   _attackSound: {fileID: 8300000, guid: da00bc14dab859348bd5bf76b5858e45, type: 3}
-  _attackDuration: 0.25
-  _attackSpeed: 5
-  _knockback: 20
+  _weaponStats: {fileID: 11400000, guid: 53e15732f7e9753459d1291a18018c38, type: 2}
+  _meleeStats: {fileID: 11400000, guid: 53e15732f7e9753459d1291a18018c38, type: 2}
 --- !u!114 &7838771925817815280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,11 +56,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a9c0f0a0bfcb14e862d5d302a4adfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackCooldown: 3
   _attackTimer: 3
+  Chargeable: 0
+  ChargeTime: 0
   _animator: {fileID: 5667571729938717504}
   _attackSound: {fileID: 8300000, guid: 60f6e1d47e0281d4b9e20df80a7f23fd, type: 3}
+  _weaponStats: {fileID: 11400000, guid: 29d9c4120ac066c4fa120ac6817906c5, type: 2}
   _projectile: {fileID: 7494131337255551982, guid: 0a15289535592e049946c96de118cdde, type: 3}
+  _shotStats: {fileID: 11400000, guid: 29d9c4120ac066c4fa120ac6817906c5, type: 2}
 --- !u!1001 &8160301137777318268
 PrefabInstance:
   m_ObjectHideFlags: 0

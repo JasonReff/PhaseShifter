@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CharacterAttackController : MonoBehaviour
 {
-    [SerializeField] private PlayerAttack _blueAttack, _redAttack, _currentAttack;
+    [SerializeField] private PlayerAttack _blueAttack;
+    [SerializeField] private PlayerAttack _redAttack;
+    [SerializeField] private PlayerAttack _currentAttack;
 
     private void OnEnable()
     {
