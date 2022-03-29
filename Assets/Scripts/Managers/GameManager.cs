@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _mapParameters.UpdateParameters();
-        _mapGenerator.GenerateMap();
+        _mapGenerator.GenerateMapUntilSuccessful();
         _spawnerManager.FillOutMap();
         GetComponent<CameraManager>().FollowPlayer();
         OnGameReset();

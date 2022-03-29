@@ -24,4 +24,23 @@ public static class Extensions
         var returnList = list.OrderBy(t => rand.Next()).Take(numberToPull);
         return returnList.ToList();
     }
+
+    public static Vector2 CardinalDirection(this Vector2 direction)
+    {
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            if (direction.x < 0)
+                return new Vector2(-1, 0);
+            if (direction.x > 0)
+                return new Vector2(1, 0);
+        }
+        else if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x))
+        {
+            if (direction.y < 0)
+                return new Vector2(0, -1);
+            if (direction.y > 0)
+                return new Vector2(1, 0);
+        }
+        return new Vector2(0, 0);
+    }
 }

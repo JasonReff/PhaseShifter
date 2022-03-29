@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,6 +9,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private Tilemap _floorTilemap, _wallTilemap;
     [SerializeField] private Tile _floor, _wall;
     [SerializeField] private MapParameters _mapParameters;
+    [SerializeField] private int _numberOfGenerations = 0;
+    private bool _mapGenerated = false;
     private List<Room> _plannedRooms = new List<Room>(), _enemyRooms = new List<Room>(), _itemRooms = new List<Room>();
     private Room _startingRoom, _endingRoom, _bossRoom;
     private List<Vector2Int> _tilePositions = new List<Vector2Int>();
@@ -20,8 +23,20 @@ public class MapGenerator : MonoBehaviour
     public List<Vector2Int> TilePositions { get => _tilePositions; }
     public Room BossRoom { get => _bossRoom; }
 
+
+    public void GenerateMapUntilSuccessful()
+    {
+        while (_mapGenerated == false)
+        {
+            GenerateMap();
+            _numberOfGenerations++;
+        }
+        Debug.Log($"Map generated in {_numberOfGenerations} loops");
+    }
+
     public void GenerateMap()
     {
+        ClearRooms();
         CreateStartingRoom();
         for (int i = 0; i < _mapParameters.MaxDistanceFromStart; i++)
         {
@@ -34,8 +49,19 @@ public class MapGenerator : MonoBehaviour
         CreateEndingRoom();
         ChooseItemRooms();
         EraseEmptyExits();
-        foreach (var room in _plannedRooms)
-            SpawnRoom(room, room.GlobalPosition);
+        if (_mapGenerated)
+            StartCoroutine(SpawnRoomCoroutine());
+    }
+
+    private void ClearRooms()
+    {
+        _plannedRooms.Clear();
+        _enemyRooms.Clear();
+        _itemRooms.Clear();
+        _tilePositions.Clear();
+        _startingRoom = null;
+        _bossRoom = null;
+        _endingRoom = null;
     }
 
     public void CreateStartingRoom()
@@ -86,10 +112,12 @@ public class MapGenerator : MonoBehaviour
     private void CreateEndingRoom()
     {
         var endingRoom = CreateRoom(_bossRoom, _bossRoom.Exits.First(), _bossRoom.DistanceFromStart + 1, 0);
-        while (endingRoom == null)
+        if (endingRoom == null)
         {
-            endingRoom = CreateRoom(_bossRoom, _bossRoom.Exits.First(), _bossRoom.DistanceFromStart + 1, 0);
+            _mapGenerated = false;
+            return;
         }
+        _mapGenerated = true;
         _endingRoom = endingRoom;
         _plannedRooms.Add(_endingRoom);
     }
@@ -403,6 +431,16 @@ public class MapGenerator : MonoBehaviour
         }
         door.Wall = wall;
         return door;
+    }
+
+
+    private IEnumerator SpawnRoomCoroutine()
+    {
+        foreach (var room in _plannedRooms)
+        {
+            SpawnRoom(room, room.GlobalPosition);
+        }
+        yield return null;
     }
 
     private void SpawnRoom(Room room, Vector2Int lowerLeft)

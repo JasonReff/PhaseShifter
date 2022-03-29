@@ -12,7 +12,8 @@ public abstract class CharacterAttack : MonoBehaviour
     public virtual void Attack(Vector2 attackDirection)
     {
         _animator.SetTrigger("Attack");
-        _animator.SetFloat("AttackHorizontalVelocity", attackDirection.x);
+        _animator.SetFloat("AttackHorizontalVelocity", attackDirection.CardinalDirection().x);
+        _animator.SetFloat("AttackVerticalVelocity", attackDirection.CardinalDirection().y);
         if (_attackSound != null)
             AudioManager.PlaySoundEffect(_attackSound);
     }
