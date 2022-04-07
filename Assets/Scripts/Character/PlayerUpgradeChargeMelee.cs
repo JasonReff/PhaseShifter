@@ -8,7 +8,7 @@ public class PlayerUpgradeChargeMelee : PlayerUpgrade
     public override void AddUpgrade()
     {
         base.AddUpgrade();
-        _characterMelee = CharacterManager.Instance.Player.GetComponent<CharacterMelee>();
+        _characterMelee = CharacterManager.Instance.Player.GetComponentInChildren<CharacterMelee>();
         _characterMelee.Chargeable = true;
     }
 

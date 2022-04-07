@@ -18,7 +18,7 @@ MonoBehaviour:
   _animator: {fileID: 6039667459229611646}
   _attackSound: {fileID: 8300000, guid: dafa873fa36577e4b81727354f90b35d, type: 3}
   _weaponStats: {fileID: 11400000, guid: a3fde140d0d0d2444b9e0e211d20341d, type: 2}
-  _summonedEnemy: {fileID: 8073485494190581003, guid: 44c16f700655ccd4185ae87663cdfc25, type: 3}
+  _summonedEnemy: {fileID: 8258826260617406977, guid: 44c16f700655ccd4185ae87663cdfc25, type: 3}
 --- !u!1001 &7802839703454495810
 PrefabInstance:
   m_ObjectHideFlags: 0

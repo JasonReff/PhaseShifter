@@ -39,7 +39,7 @@ public static class Extensions
             if (direction.y < 0)
                 return new Vector2(0, -1);
             if (direction.y > 0)
-                return new Vector2(1, 0);
+                return new Vector2(0, 1);
         }
         return new Vector2(0, 0);
     }
