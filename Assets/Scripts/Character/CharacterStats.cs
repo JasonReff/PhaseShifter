@@ -7,6 +7,11 @@ public class CharacterStats : ScriptableObject
     public Stats Stats = new Stats();
     public List<PlayerUpgrade> Upgrades = new List<PlayerUpgrade>();
 
+    public void ClearUpgrades()
+    {
+        for (int i = Upgrades.Count - 1; i >= 0; i--)
+            Upgrades[i].RemoveUpgrade();
+    }
 
     public void ResetStats()
     {

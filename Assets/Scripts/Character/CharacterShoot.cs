@@ -26,8 +26,8 @@ public class CharacterShoot : PlayerAttack
     public IEnumerator BurstCoroutine(Vector2 attackDirection, float shotDelay)
     {
         yield return new WaitForSeconds(shotDelay);
-        Attack(attackDirection);
+        ShootInDirection(attackDirection);
         yield return new WaitForSeconds(shotDelay);
-        Attack(attackDirection);
+        ShootInDirection(attackDirection);
     }
 }

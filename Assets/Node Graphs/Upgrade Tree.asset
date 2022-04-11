@@ -1,0 +1,239 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4266641999526147560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad1c93e05378f648bea7ecf66e6c557, type: 3}
+  m_Name: Upgrade
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: -56}
+  ports:
+    keys:
+    - FollowingUpgrades
+    - PrerequisiteUpgrade
+    values:
+    - _fieldName: FollowingUpgrades
+      _node: {fileID: -4266641999526147560}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: PrerequisiteUpgrade
+        node: {fileID: 8283037785126416}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: PrerequisiteUpgrade
+      _node: {fileID: -4266641999526147560}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: StartingUpgrades
+        node: {fileID: 6065874595742757478}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  PrerequisiteUpgrade: 0
+  FollowingUpgrades: 0
+  Upgrade: {fileID: 11400000, guid: e9a4523c858919a48b680e85015936c9, type: 2}
+--- !u!114 &-1866785723092286638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad1c93e05378f648bea7ecf66e6c557, type: 3}
+  m_Name: Upgrade
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: -312}
+  ports:
+    keys:
+    - PrerequisiteUpgrade
+    - FollowingUpgrades
+    values:
+    - _fieldName: PrerequisiteUpgrade
+      _node: {fileID: -1866785723092286638}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: StartingUpgrades
+        node: {fileID: 6065874595742757478}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: FollowingUpgrades
+      _node: {fileID: -1866785723092286638}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: PrerequisiteUpgrade
+        node: {fileID: 8283037785126416}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  PrerequisiteUpgrade: 0
+  FollowingUpgrades: 0
+  Upgrade: {fileID: 11400000, guid: 454d610290eb3024587cf2dc458cdfbe, type: 2}
+--- !u!114 &-1061664968793573657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad1c93e05378f648bea7ecf66e6c557, type: 3}
+  m_Name: Upgrade
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: -440}
+  ports:
+    keys:
+    - PrerequisiteUpgrade
+    - FollowingUpgrades
+    values:
+    - _fieldName: PrerequisiteUpgrade
+      _node: {fileID: -1061664968793573657}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: StartingUpgrades
+        node: {fileID: 6065874595742757478}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: FollowingUpgrades
+      _node: {fileID: -1061664968793573657}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  PrerequisiteUpgrade: 0
+  FollowingUpgrades: 0
+  Upgrade: {fileID: 11400000, guid: 38dec357c52c08047b8292a10341cb26, type: 2}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfea509f7f3eae409851b7d38b04c48, type: 3}
+  m_Name: Upgrade Tree
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -4266641999526147560}
+  - {fileID: 8283037785126416}
+  - {fileID: 6065874595742757478}
+  - {fileID: -1866785723092286638}
+  - {fileID: -1061664968793573657}
+  StartingNode: {fileID: 6065874595742757478}
+--- !u!114 &8283037785126416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad1c93e05378f648bea7ecf66e6c557, type: 3}
+  m_Name: Upgrade
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 168, y: -200}
+  ports:
+    keys:
+    - FollowingUpgrades
+    - PrerequisiteUpgrade
+    values:
+    - _fieldName: FollowingUpgrades
+      _node: {fileID: 8283037785126416}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: PrerequisiteUpgrade
+      _node: {fileID: 8283037785126416}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: FollowingUpgrades
+        node: {fileID: -4266641999526147560}
+        reroutePoints: []
+      - fieldName: FollowingUpgrades
+        node: {fileID: -1866785723092286638}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  PrerequisiteUpgrade: 0
+  FollowingUpgrades: 0
+  Upgrade: {fileID: 11400000, guid: d3290018edc64ef499849e9f99eeb55f, type: 2}
+--- !u!114 &6065874595742757478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae55d15fdcf5a404391c836ec6803e95, type: 3}
+  m_Name: Starting
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -472, y: -168}
+  ports:
+    keys:
+    - StartingUpgrades
+    values:
+    - _fieldName: StartingUpgrades
+      _node: {fileID: 6065874595742757478}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: PrerequisiteUpgrade
+        node: {fileID: -4266641999526147560}
+        reroutePoints: []
+      - fieldName: PrerequisiteUpgrade
+        node: {fileID: -1866785723092286638}
+        reroutePoints: []
+      - fieldName: PrerequisiteUpgrade
+        node: {fileID: -1061664968793573657}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  StartingUpgrades: 0
