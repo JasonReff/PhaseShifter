@@ -17,5 +17,15 @@ MonoBehaviour:
     ShotSpeedMultiplier: 1
     InvulnerabilityMultiplier: 1
     KnockbackMultiplier: 1
-    MovementSpeedMultiplier: 0
+    MovementSpeedMultiplier: 1
+    MaxHealth: 3
+    CurrentHealth: 3
+  _defaultStats:
+    MeleeSpeedMultiplier: 1
+    ShotSpeedMultiplier: 1
+    InvulnerabilityMultiplier: 1
+    KnockbackMultiplier: 1
+    MovementSpeedMultiplier: 1
+    MaxHealth: 3
+    CurrentHealth: 3
   Upgrades: []

@@ -153,6 +153,7 @@ MonoBehaviour:
   - {fileID: 6065874595742757478}
   - {fileID: -1866785723092286638}
   - {fileID: -1061664968793573657}
+  - {fileID: 5215721382983718465}
   StartingNode: {fileID: 6065874595742757478}
 --- !u!114 &8283037785126416
 MonoBehaviour:
@@ -200,6 +201,49 @@ MonoBehaviour:
   PrerequisiteUpgrade: 0
   FollowingUpgrades: 0
   Upgrade: {fileID: 11400000, guid: d3290018edc64ef499849e9f99eeb55f, type: 2}
+--- !u!114 &5215721382983718465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad1c93e05378f648bea7ecf66e6c557, type: 3}
+  m_Name: Upgrade
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: 136}
+  ports:
+    keys:
+    - PrerequisiteUpgrade
+    - FollowingUpgrades
+    values:
+    - _fieldName: PrerequisiteUpgrade
+      _node: {fileID: 5215721382983718465}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: StartingUpgrades
+        node: {fileID: 6065874595742757478}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: FollowingUpgrades
+      _node: {fileID: 5215721382983718465}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  PrerequisiteUpgrade: 0
+  FollowingUpgrades: 0
+  Upgrade: {fileID: 11400000, guid: 015d1b10a415aa142a40cb4c8af6aca3, type: 2}
 --- !u!114 &6065874595742757478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +275,9 @@ MonoBehaviour:
         reroutePoints: []
       - fieldName: PrerequisiteUpgrade
         node: {fileID: -1061664968793573657}
+        reroutePoints: []
+      - fieldName: PrerequisiteUpgrade
+        node: {fileID: 5215721382983718465}
         reroutePoints: []
       _direction: 1
       _connectionType: 0

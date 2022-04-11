@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
-    [SerializeField] private PlayerUpgradePool _upgradePool;
-    [SerializeField] private NodeParser _upgradeNodeParser;
+    [SerializeField] private UpgradeNodeParser _upgradeNodeParser;
     [SerializeField] private GameObject _upgradeCanvas;
     [SerializeField] private int _numberOfUpgradeChoices = 3;
 

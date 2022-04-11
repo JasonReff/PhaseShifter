@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class NodeParser : MonoBehaviour
+public class UpgradeNodeParser : MonoBehaviour
 {
 
     [SerializeField] private UpgradeTreeGraph _graph;
@@ -16,7 +16,7 @@ public class NodeParser : MonoBehaviour
         {
             foreach (var nextUpgrade in GetNextUpgrades(upgrade))
             {
-                if (_characterStats.Upgrades.Contains(nextUpgrade))
+                if (IgnoreUpgrade(upgrade) == true)
                     continue;
                 var prerequisiteUpgrades = GetPreviousUpgrades(nextUpgrade);
                 if (prerequisiteUpgrades.All(t => _characterStats.Upgrades.Contains(t)))
@@ -27,12 +27,21 @@ public class NodeParser : MonoBehaviour
         }
         foreach (var upgrade in GetStartingUpgrades())
         {
-            if (!_characterStats.Upgrades.Contains(upgrade))
+            if (IgnoreUpgrade(upgrade) == false)
             {
                 upgrades.Add(upgrade);
             }
         }
         return upgrades;
+    }
+
+    private bool IgnoreUpgrade(PlayerUpgrade upgrade)
+    {
+        if (_characterStats.Upgrades.Contains(upgrade) && upgrade.Reusable == false)
+        {
+            return true;
+        }
+        else return false;
     }
 
     private BaseNode GetNode(PlayerUpgrade upgrade)

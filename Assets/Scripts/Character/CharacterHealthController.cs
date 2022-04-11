@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class CharacterHealthController : MonoBehaviour
 {
-    [SerializeField] protected int _health;
+    [SerializeField] private int _health;
     [SerializeField] private bool _vulnerable = true;
     [SerializeField] protected float _invincibilityTime = 0.5f, _fadeTime = 1;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private ParticleSystem _bloodParticleSystem;
     [SerializeField] protected AudioClip _deathSound;
     public bool Vulnerable { get => _vulnerable; set => _vulnerable = value; }
+    public virtual int Health { get => _health; private set => _health = value; }
+
     public event Action OnDamage;
     public event Action OnDeath;
     public event Action<int> OnHealthChanged;
@@ -57,9 +59,9 @@ public class CharacterHealthController : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-        SetHealth(_health - damage);
+        SetHealth(Health - damage);
         OnDamage?.Invoke();
-        if (_health <= 0)
+        if (Health <= 0)
         {
             Death();
         }
@@ -68,7 +70,7 @@ public class CharacterHealthController : MonoBehaviour
 
     protected virtual void SetHealth(int health)
     {
-        _health = health;
+        Health = health;
         OnHealthChanged?.Invoke(health);
     }
 
