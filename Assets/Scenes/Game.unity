@@ -3743,6 +3743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Upgrade: {fileID: 0}
+  _prerequisiteUpgrades: []
   _nameTextbox: {fileID: 1390503714}
   _descriptionTextbox: {fileID: 1265474015}
   _largeScale: 1.1
@@ -6027,6 +6028,7 @@ MonoBehaviour:
   _floor: {fileID: 11400000, guid: fe35455b825eba043b56f38120aaed16, type: 2}
   _wall: {fileID: 11400000, guid: 70c8b43e12c305b429712d467ff35440, type: 2}
   _mapParameters: {fileID: 11400000, guid: cc3718d3a806f84468bdd119ff7c5441, type: 2}
+  _numberOfGenerations: 0
 --- !u!1 &1352316753
 GameObject:
   m_ObjectHideFlags: 0
@@ -7684,6 +7686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Upgrade: {fileID: 0}
+  _prerequisiteUpgrades: []
   _nameTextbox: {fileID: 1330305060}
   _descriptionTextbox: {fileID: 798957938}
   _largeScale: 1.1
@@ -9595,6 +9598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Upgrade: {fileID: 0}
+  _prerequisiteUpgrades: []
   _nameTextbox: {fileID: 451029663}
   _descriptionTextbox: {fileID: 1768957080}
   _largeScale: 1.1
