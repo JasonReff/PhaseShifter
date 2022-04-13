@@ -8,9 +8,19 @@ public class CharacterMelee : PlayerAttack
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private CharacterStats _stats;
     [SerializeField] private PunchStats _punchStats;
+    [SerializeField] private TestSettings _testSettings;
+    [SerializeField] private SpriteRenderer _renderer;
 
     public static Action<bool> CanMove;
     public static event Action OnPlayerMelee;
+
+    private void Awake()
+    {
+        if (_testSettings.BoxCollidersVisible)
+            _renderer.sprite = _testSettings.BoxColliderSprite;
+        else
+            _renderer.sprite = null;
+    }
 
     public override void Attack(Vector2 attackDirection)
     {

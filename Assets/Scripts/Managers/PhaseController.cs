@@ -3,56 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PhaseController : MonoBehaviour
+public abstract class PhaseController : MonoBehaviour
 {
-    [SerializeField] private float _minTimer, _maxTimer, _timer = 5;
-    [SerializeField] private AudioClip _timerClip;
+    
+    [SerializeField] private bool _changePhaseIfOnlyOneEnemyType;
     public static Phase Phase;
-    private int _numberOfClicks = 0;
     private List<EnemyPhaseController> _enemies = new List<EnemyPhaseController>();
-
     public static event Action<Phase> OnPhaseChanged;
+    
 
-    private void Update()
-    {
-        PlayTimerSound();
-        if (_timer > 0)
-        {
-            _timer -= Time.deltaTime;
-        }
-        else
-        {
-            ChangePhase();
-            SetTimer();
-        }
-    }
-
-    private void PlayTimerSound()
-    {
-        if (_timer < 1.5 && _numberOfClicks == 3)
-        {
-            AudioManager.PlaySoundEffect(_timerClip);
-            _numberOfClicks--;
-        }
-        else if (_timer < 1 && _numberOfClicks == 2)
-        {
-            AudioManager.PlaySoundEffect(_timerClip);
-            _numberOfClicks--;
-        }
-        else if (_timer < 0.5 && _numberOfClicks == 1)
-        {
-            AudioManager.PlaySoundEffect(_timerClip);
-            _numberOfClicks--;
-        }
-    }
-
-    private void SetTimer()
-    {
-        _timer = UnityEngine.Random.Range(_minTimer, _maxTimer);
-        _numberOfClicks = 3;
-    }
-
-    private void ChangePhase()
+    protected virtual void ChangePhase()
     {
         if (StayOneColor() != null)
         {
@@ -78,6 +38,8 @@ public class PhaseController : MonoBehaviour
 
     private Phase? StayOneColor()
     {
+        if (_changePhaseIfOnlyOneEnemyType == false)
+            return null;
         if (EnemyManager.Enemies.Count == 0) return null;
         if (EnemyManager.Enemies.TrueForAll(t => t.GetComponent<EnemyPhaseController>().VulnerablePhase == Phase.Red))
             return Phase.Red;
@@ -87,6 +49,7 @@ public class PhaseController : MonoBehaviour
     }
 }
 
+[System.Serializable]
 public enum Phase
 {
     Red,
