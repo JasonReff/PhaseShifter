@@ -2,9 +2,8 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class MinimapManager : MonoBehaviour, IPointerClickHandler
+public class MinimapManager : MonoBehaviour
 {
     [SerializeField] private Transform _minimapTransform;
     [SerializeField] private CinemachineVirtualCamera _minimapVirtualCamera;
@@ -12,21 +11,26 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Vector3 _smallScale, _largeScale, _smallPosition, _largePosition;
     [SerializeField] private Vector3 _input;
     [SerializeField] private float _cameraMoveSpeed;
+    [SerializeField] private MinimapImage _minimap;
+
     private bool _enlarged = false;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public bool Enlarged { get => _enlarged; }
+
+
+    private void OnEnable()
     {
-        if (_enlarged)
-        {
-            ShrinkMinimap();
-        }
-        else
-        {
-            EnlargeMinimap();
-        }
+        EnemySpawner.OnCombatStart += HideMinimap;
+        EnemySpawner.OnCombatEnd += ShowMinimap;
     }
 
-    private void EnlargeMinimap()
+    private void OnDisable()
+    {
+        EnemySpawner.OnCombatStart -= HideMinimap;
+        EnemySpawner.OnCombatEnd -= ShowMinimap;
+    }
+
+    public void EnlargeMinimap()
     {
         _minimapTransform.localPosition = _largePosition;
         _minimapTransform.localScale = _largeScale;
@@ -35,7 +39,7 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
         _minimapVirtualCamera.Follow = null;
     }
 
-    private void ShrinkMinimap()
+    public void ShrinkMinimap()
     {
         _minimapTransform.localPosition = _smallPosition;
         _minimapTransform.localScale = _smallScale;
@@ -52,4 +56,16 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
         if (_enlarged)
             _minimapVirtualCamera.ForceCameraPosition(_minimapCamera.transform.position + _input * Time.unscaledDeltaTime * _cameraMoveSpeed, Quaternion.identity);
     }
+
+    private void HideMinimap()
+    {
+        _minimap.gameObject.SetActive(false);
+    }
+
+    private void ShowMinimap()
+    {
+        _minimap.gameObject.SetActive(true);
+    }
+
+
 }

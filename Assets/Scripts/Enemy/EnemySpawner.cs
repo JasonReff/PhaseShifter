@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : RoomTrigger
 {
     [SerializeField] private int _minimumEntryDistance = 3, _minimumSpawnDistance = 3, _enemiesDestroyed = 0;
     private Tilemap _floorTilemap, _wallTilemap;
     [SerializeField] private Tile _wallTile;
     private List<Vector2Int> _wallPositions;
-    private Room _room;
     private List<EnemyDifficulty> _enemies = new List<EnemyDifficulty>();
-    private bool _didSpawnerTrigger;
 
-    public Room Room { get => _room; set => _room = value; }
     public List<EnemyDifficulty> Enemies { get => _enemies; }
 
     public static event Action OnCombatStart;
@@ -74,14 +71,10 @@ public class EnemySpawner : MonoBehaviour
         OnCombatEnd?.Invoke();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void RoomEntered()
     {
-        if (collision.tag == "Player" && _didSpawnerTrigger == false)
-        {
-            collision.transform.position = this.transform.position;
-            SpawnEnemies();
-            SpawnWalls();
-            _didSpawnerTrigger = true;
-        }
+        base.RoomEntered();
+        SpawnEnemies();
+        SpawnWalls();
     }
 }

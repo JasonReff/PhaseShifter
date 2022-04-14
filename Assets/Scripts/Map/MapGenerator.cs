@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,9 @@ public class MapGenerator : MonoBehaviour
     public List<Room> ItemRooms { get => _itemRooms; }
     public List<Vector2Int> TilePositions { get => _tilePositions; }
     public Room BossRoom { get => _bossRoom; }
+
+
+    public static event Action<Room> StartingRoomSpawned; 
 
 
     public void GenerateMapUntilSuccessful()
@@ -456,6 +460,8 @@ public class MapGenerator : MonoBehaviour
                     _wallTilemap.SetTile(tileCoords, _wall);
             }
         }
+        if (room == _startingRoom)
+            StartingRoomSpawned?.Invoke(room);
     }
 }
 

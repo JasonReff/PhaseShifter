@@ -36,6 +36,7 @@ public class SpawnerManager : MonoBehaviour
             var enemySpawner = Instantiate(_enemySpawnerPrefab, worldPosition, Quaternion.identity, _spawnerParent);
             enemySpawner.SetSpawner(_enemyPools.GenerateEnemies(_mapParameters.MinimumEncounterDifficulty, _mapParameters.MaximumEncounterDifficulty), _floorTilemap, _wallTilemap);
             enemySpawner.Room = room;
+            enemySpawner.GetComponent<MinimapTrigger>().Room = room;
         }
     }
 
@@ -46,6 +47,7 @@ public class SpawnerManager : MonoBehaviour
         var enemySpawner = Instantiate(_enemySpawnerPrefab, worldPosition, Quaternion.identity, _spawnerParent);
         enemySpawner.SetSpawner(new List<EnemyDifficulty>() { _enemyPools.BossList.Rand()}, _floorTilemap, _wallTilemap);
         enemySpawner.Room = room;
+        enemySpawner.GetComponent<MinimapTrigger>().Room = room;
     }
 
     private void SpawnHazards()
