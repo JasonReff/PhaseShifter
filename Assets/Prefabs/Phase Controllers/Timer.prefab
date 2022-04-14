@@ -47,4 +47,4 @@ MonoBehaviour:
   _minTimer: 5
   _maxTimer: 7
   _timer: 5
-  _timerClip: {fileID: 0}
+  _timerClip: {fileID: 8300000, guid: e75bcbf1d70f18143a2fe2cad35a6b9b, type: 3}

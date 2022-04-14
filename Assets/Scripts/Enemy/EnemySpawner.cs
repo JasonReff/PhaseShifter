@@ -76,5 +76,11 @@ public class EnemySpawner : RoomTrigger
         base.RoomEntered();
         SpawnEnemies();
         SpawnWalls();
+        MovePlayer();
+    }
+
+    private void MovePlayer()
+    {
+        CharacterManager.Instance.Player.transform.position = transform.position;
     }
 }
