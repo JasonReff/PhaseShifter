@@ -263,6 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 65088037}
   - component: {fileID: 65088038}
+  - component: {fileID: 65088039}
   m_Layer: 0
   m_Name: UpgradeManager
   m_TagString: Untagged
@@ -296,9 +297,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cf33ff3d065cc43a31fba26cd8aa5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeNodeParser: {fileID: 0}
+  _upgradeNodeParser: {fileID: 65088039}
   _upgradeCanvas: {fileID: 95866786}
   _numberOfUpgradeChoices: 3
+--- !u!114 &65088039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65088036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27364adf2ad379841bb4c51320b79a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graph: {fileID: 11400000, guid: a2b598f94d8f13d4f91a72033be83f18, type: 2}
+  _characterStats: {fileID: 11400000, guid: f7e5b0bc694de3c41932b4234390c85a, type: 2}
 --- !u!1 &80208734
 GameObject:
   m_ObjectHideFlags: 0
@@ -8459,7 +8474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bed98ebee78633459d5658deb3f9880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimap: {fileID: 1444294420}
   _virtualCamera: {fileID: 144845834}
   _minimapVirtualCamera: {fileID: 1212361701}
 --- !u!1 &1768957078
