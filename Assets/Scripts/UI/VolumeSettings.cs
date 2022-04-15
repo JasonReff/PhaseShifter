@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "VolumeSettings")]
+[CreateAssetMenu(menuName = "Settings/VolumeSettings")]
 public class VolumeSettings : ScriptableObject
 {
     public float MusicVolume, EffectsVolume;
