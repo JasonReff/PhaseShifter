@@ -9,14 +9,24 @@ public class MinimapTilemapManager : MonoBehaviour
 
     private void OnEnable()
     {
-        MinimapTrigger.OnRoomEntered += CopyRoomToTilemap;
-        MapGenerator.StartingRoomSpawned += CopyRoomToTilemap;
+        MinimapTrigger.OnRoomEntered += CopyAdjacentRooms;
+        MapSpawner.StartingRoomSpawned += CopyAdjacentRooms;
+        MapSpawner.StartingRoomSpawned += CopyRoomToTilemap;
     }
 
     private void OnDisable()
     {
-        MinimapTrigger.OnRoomEntered -= CopyRoomToTilemap;
-        MapGenerator.StartingRoomSpawned -= CopyRoomToTilemap;
+        MinimapTrigger.OnRoomEntered -= CopyAdjacentRooms;
+        MapSpawner.StartingRoomSpawned -= CopyAdjacentRooms;
+        MapSpawner.StartingRoomSpawned -= CopyRoomToTilemap;
+    }
+
+    private void CopyAdjacentRooms(Room room)
+    {
+        foreach (var doorway in room.Exits)
+        {
+            CopyRoomToTilemap(doorway.NextRoom);
+        }
     }
 
     private void CopyRoomToTilemap(Room room)
@@ -26,9 +36,9 @@ public class MinimapTilemapManager : MonoBehaviour
             for (int y = 0; y < room.Tiles.GetLength(1); y++)
             {
                 Vector3Int tileCoords = new Vector3Int(x + room.GlobalPosition.x, y + room.GlobalPosition.y, 0);
-                if (room.Tiles[x, y] == _floor)
+                if (room.Tiles[x, y] == TileType.Floor)
                     _minimapTilemap.SetTile(tileCoords, _floor);
-                else if (room.Tiles[x, y] == _wall)
+                else if (room.Tiles[x, y] == TileType.Wall)
                     _minimapTilemap.SetTile(tileCoords, _wall);
             }
         }

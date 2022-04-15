@@ -1,44 +1,33 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField] private Tilemap _floorTilemap, _wallTilemap;
-    [SerializeField] private Tile _floor, _wall;
+    
     [SerializeField] private MapParameters _mapParameters;
     [SerializeField] private int _numberOfGenerations = 0;
-    private bool _mapGenerated = false;
-    private List<Room> _plannedRooms = new List<Room>(), _enemyRooms = new List<Room>(), _itemRooms = new List<Room>();
-    private Room _startingRoom, _endingRoom, _bossRoom;
+    private List<Room> _plannedRooms = new List<Room>(), _enemyRooms = new List<Room>();
     private List<Vector2Int> _tilePositions = new List<Vector2Int>();
+    private Room _bossRoom, _startingRoom;
 
-    public Room StartingRoom { get => _startingRoom; }
-    public List<Room> PlannedRooms { get => _plannedRooms; }
-    public List<Room> EnemyRooms { get => _enemyRooms; }
-    public Room EndingRoom { get => _endingRoom; }
-    public List<Room> ItemRooms { get => _itemRooms; }
+    public List<Room> Rooms { get => _plannedRooms; }
     public List<Vector2Int> TilePositions { get => _tilePositions; }
-    public Room BossRoom { get => _bossRoom; }
-
-
-    public static event Action<Room> StartingRoomSpawned; 
+ 
 
 
     public void GenerateMapUntilSuccessful()
     {
-        while (_mapGenerated == false)
+        bool mapGenerated = GenerateMap();
+        while (mapGenerated == false)
         {
-            GenerateMap();
+            mapGenerated = GenerateMap();
             _numberOfGenerations++;
         }
         Debug.Log($"Map generated in {_numberOfGenerations} loops");
     }
 
-    public void GenerateMap()
+    public bool GenerateMap()
     {
         ClearRooms();
         CreateStartingRoom();
@@ -50,28 +39,22 @@ public class MapGenerator : MonoBehaviour
         }
         SetEnemyRooms();
         CreateBossRoom();
-        CreateEndingRoom();
+        bool endingRoomCreated = CreateEndingRoom();
         ChooseItemRooms();
         EraseEmptyExits();
-        if (_mapGenerated)
-            StartCoroutine(SpawnRoomCoroutine());
+        return endingRoomCreated;
     }
 
     private void ClearRooms()
     {
         _plannedRooms.Clear();
-        _enemyRooms.Clear();
-        _itemRooms.Clear();
         _tilePositions.Clear();
-        _startingRoom = null;
-        _bossRoom = null;
-        _endingRoom = null;
     }
 
     public void CreateStartingRoom()
     {
         var roomSize = new Vector2Int(UnityEngine.Random.Range(_mapParameters.MinGridSize.x, _mapParameters.MaxGridSize.x), UnityEngine.Random.Range(_mapParameters.MinGridSize.y, _mapParameters.MaxGridSize.y));
-        Tile[,] tiles = new Tile[roomSize.x, roomSize.y];
+        TileType[,] tiles = new TileType[roomSize.x, roomSize.y];
         for (int x = 0; x < roomSize.x; x++)
         {
             for (int y = 0; y < roomSize.y; y++)
@@ -79,25 +62,30 @@ public class MapGenerator : MonoBehaviour
                 Vector3Int tileCoordinates = new Vector3Int(x, y, 0);
                 if (x == 0 || y == 0 || x == roomSize.x - 1 || y == roomSize.y - 1)
                 {
-                    tiles[x, y] = _wall;
+                    tiles[x, y] = TileType.Wall;
                 }
-                else tiles[x, y] = _floor;
+                else tiles[x, y] = TileType.Floor;
             }
         }
         List<Doorway> exits = StartingRoomExits(roomSize);
-        Room room = new Room(_mapParameters.StartingLocation, tiles, null, exits, 0);
-        AddRoomToSpawner(room);
-        _startingRoom = room;
+        _startingRoom = new Room(_mapParameters.StartingLocation, tiles, null, exits, 0);
+        AddRoomToSpawner(_startingRoom);
+        _startingRoom.Type = RoomType.StartingRoom;
         foreach (var exit in exits)
         {
-            room.Tiles[exit.Position.x, exit.Position.y] = _floor;
+            _startingRoom.Tiles[exit.Position.x, exit.Position.y] = TileType.Floor;
         }
     }
 
     private void SetEnemyRooms()
     {
+        _enemyRooms.Clear();
         var rooms = _plannedRooms.Where(t => t != _startingRoom).ToList();
-        _enemyRooms = rooms;
+        foreach (var room in rooms)
+        {
+            _enemyRooms.Add(room);
+            room.Type = RoomType.EnemyRoom;
+        }
     }
 
     private void CreateBossRoom()
@@ -110,20 +98,20 @@ public class MapGenerator : MonoBehaviour
         {
             _bossRoom = CreateRoom(replacedRoom.Entry.NextRoom, replacedRoom.Entry.NextRoom.Exits.First(t => t.NextRoom == replacedRoom), replacedRoom.Entry.NextRoom.DistanceFromStart, 1, false, true);
         }
+        _bossRoom.Type = RoomType.BossRoom;
         _plannedRooms.Add(_bossRoom);
     }
 
-    private void CreateEndingRoom()
+    private bool CreateEndingRoom()
     {
         var endingRoom = CreateRoom(_bossRoom, _bossRoom.Exits.First(), _bossRoom.DistanceFromStart + 1, 0);
         if (endingRoom == null)
         {
-            _mapGenerated = false;
-            return;
+            return false;
         }
-        _mapGenerated = true;
-        _endingRoom = endingRoom;
-        _plannedRooms.Add(_endingRoom);
+        endingRoom.Type = RoomType.PortalRoom;
+        _plannedRooms.Add(endingRoom);
+        return true;
     }
 
     private void ChooseItemRooms()
@@ -132,8 +120,9 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < numberOfItemRooms; i++)
         {
             var rooms = _enemyRooms.OrderBy(t => t.Exits.Count(e => e.NextRoom != null)).ToList();
-            _itemRooms.Add(rooms.First());
-            _enemyRooms.Remove(rooms.First());
+            var itemRoom = rooms.First();
+            itemRoom.Type = RoomType.ItemRoom;
+            _enemyRooms.Remove(itemRoom);
         }
     }
 
@@ -173,7 +162,7 @@ public class MapGenerator : MonoBehaviour
             {
                 if (exit.NextRoom == null)
                 {
-                    room.Tiles[exit.Position.x, exit.Position.y] = _wall;
+                    room.Tiles[exit.Position.x, exit.Position.y] = TileType.Wall;
                 }
             }
         }
@@ -183,7 +172,7 @@ public class MapGenerator : MonoBehaviour
     {
         distance++;
         var roomSize = new Vector2Int(UnityEngine.Random.Range(_mapParameters.MinGridSize.x, _mapParameters.MaxGridSize.x), UnityEngine.Random.Range(_mapParameters.MinGridSize.y, _mapParameters.MaxGridSize.y));
-        Tile[,] tiles = SetTiles(roomSize);
+        TileType[,] tiles = SetTiles(roomSize);
         Vector2Int shift = RoomShift(previousExit.Wall, roomSize);
         Vector2Int offset = OffsetRoomByOne(previousExit.Wall);
         Doorway entry = CreateRoomEntry(previousExit, shift);
@@ -199,9 +188,9 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    private Tile[,] SetTiles(Vector2Int roomSize)
+    private TileType[,] SetTiles(Vector2Int roomSize)
     {
-        Tile[,] tiles = new Tile[roomSize.x, roomSize.y];
+        TileType[,] tiles = new TileType[roomSize.x, roomSize.y];
         for (int x = 0; x < roomSize.x; x++)
         {
             for (int y = 0; y < roomSize.y; y++)
@@ -209,9 +198,9 @@ public class MapGenerator : MonoBehaviour
                 Vector3Int tileCoordinates = new Vector3Int(x, y, 0);
                 if (x == 0 || y == 0 || x == roomSize.x - 1 || y == roomSize.y - 1)
                 {
-                    tiles[x, y] = _wall;
+                    tiles[x, y] = TileType.Wall;
                 }
-                else tiles[x, y] = _floor;
+                else tiles[x, y] = TileType.Floor;
             }
         }
         return tiles;
@@ -219,11 +208,11 @@ public class MapGenerator : MonoBehaviour
 
     private void SetEntranceAndExits(Room currentRoom, Doorway previousExit)
     {
-        currentRoom.Tiles[currentRoom.Entry.Position.x, currentRoom.Entry.Position.y] = _floor;
+        currentRoom.Tiles[currentRoom.Entry.Position.x, currentRoom.Entry.Position.y] = TileType.Floor;
         previousExit.NextRoom = currentRoom;
         foreach (var exit in currentRoom.Exits)
         {
-            currentRoom.Tiles[exit.Position.x, exit.Position.y] = _floor;
+            currentRoom.Tiles[exit.Position.x, exit.Position.y] = TileType.Floor;
         }
     }
     private void RemoveRoom(Room room)
@@ -242,7 +231,7 @@ public class MapGenerator : MonoBehaviour
 
     private Room RecreateRoom(Room previousRoom, Doorway previousExit, Vector2Int roomSize)
     {
-        Tile[,] tiles = SetTiles(roomSize);
+        TileType[,] tiles = SetTiles(roomSize);
         Vector2Int shift = RoomShift(previousExit.Wall, roomSize);
         Vector2Int offset = OffsetRoomByOne(previousExit.Wall);
         Doorway entry = CreateRoomEntry(previousExit, shift);
@@ -250,7 +239,7 @@ public class MapGenerator : MonoBehaviour
         List<Doorway> exits = CreateRoomExits(entry, roomSize);
         int distance = previousRoom.DistanceFromStart++;
         Room newRoom = new Room(previousRoom.GetGlobalPositionOfTile(previousExit.Position) - shift - offset, tiles, entry, exits, distance);
-        newRoom.Tiles[entry.Position.x, entry.Position.y] = _floor;
+        newRoom.Tiles[entry.Position.x, entry.Position.y] = TileType.Floor;
         return newRoom;
     }
 
@@ -412,7 +401,7 @@ public class MapGenerator : MonoBehaviour
 
     private void RemoveExit(Room room, Doorway exit)
     {
-        room.Tiles[exit.Position.x, exit.Position.y] = _wall;
+        room.Tiles[exit.Position.x, exit.Position.y] = TileType.Wall;
         room.Exits.Remove(exit);
     }
     private Doorway CreateDoorwayAlongWall(Wall wall, Vector2Int gridSize)
@@ -438,44 +427,5 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    private IEnumerator SpawnRoomCoroutine()
-    {
-        foreach (var room in _plannedRooms)
-        {
-            SpawnRoom(room, room.GlobalPosition);
-        }
-        yield return null;
-    }
-
-    private void SpawnRoom(Room room, Vector2Int lowerLeft)
-    {
-        for (int x = 0; x < room.Tiles.GetLength(0); x++)
-        {
-            for (int y = 0; y < room.Tiles.GetLength(1); y++)
-            {
-                Vector3Int tileCoords = new Vector3Int(x + lowerLeft.x, y + lowerLeft.y, 0);
-                if (room.Tiles[x, y] == _floor)
-                    _floorTilemap.SetTile(tileCoords, _floor);
-                else if (room.Tiles[x, y] == _wall)
-                    _wallTilemap.SetTile(tileCoords, _wall);
-            }
-        }
-        if (room == _startingRoom)
-            StartingRoomSpawned?.Invoke(room);
-    }
-}
-
-public class Doorway
-{
-    public Vector2Int Position;
-    public Wall Wall;
-    public Room NextRoom;
-}
-
-public enum Wall
-{
-    Top,
-    Bottom,
-    Left,
-    Right
+    
 }

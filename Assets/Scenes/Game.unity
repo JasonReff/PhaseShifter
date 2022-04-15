@@ -5819,6 +5819,7 @@ GameObject:
   - component: {fileID: 1347728460}
   - component: {fileID: 1347728459}
   - component: {fileID: 1347728461}
+  - component: {fileID: 1347728462}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -5866,12 +5867,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f6714334598c244b8747f112cdda7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapParameters: {fileID: 11400000, guid: cc3718d3a806f84468bdd119ff7c5441, type: 2}
+  _numberOfGenerations: 0
+--- !u!114 &1347728462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347728458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058decc8e6fbb964a9f1fec68da2751d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _generator: {fileID: 1347728461}
   _floorTilemap: {fileID: 385303388}
   _wallTilemap: {fileID: 1660496932}
   _floor: {fileID: 11400000, guid: fe35455b825eba043b56f38120aaed16, type: 2}
   _wall: {fileID: 11400000, guid: 70c8b43e12c305b429712d467ff35440, type: 2}
-  _mapParameters: {fileID: 11400000, guid: cc3718d3a806f84468bdd119ff7c5441, type: 2}
-  _numberOfGenerations: 0
 --- !u!1 &1352316753
 GameObject:
   m_ObjectHideFlags: 0
@@ -8407,7 +8421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a71568eafbdd9409bd1619308572f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapGenerator: {fileID: 1347728461}
+  _mapSpawner: {fileID: 1347728462}
   _characterStats: {fileID: 11400000, guid: f7e5b0bc694de3c41932b4234390c85a, type: 2}
   _mapParameters: {fileID: 11400000, guid: cc3718d3a806f84468bdd119ff7c5441, type: 2}
   _victoryScreen: {fileID: 115381815}

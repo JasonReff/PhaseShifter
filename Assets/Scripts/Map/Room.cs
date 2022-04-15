@@ -6,11 +6,12 @@ public class Room
 {
     public int DistanceFromStart;
     public Vector2Int GlobalPosition;
-    public Tile[,] Tiles;
+    public RoomType Type;
+    public TileType[,] Tiles;
     public Doorway Entry;
     public List<Doorway> Exits;
 
-    public Room(Vector2Int position, Tile[,] tiles, Doorway entry, List<Doorway> exits, int distance)
+    public Room(Vector2Int position, TileType[,] tiles, Doorway entry, List<Doorway> exits, int distance)
     {
         GlobalPosition = position;
         Tiles = tiles;
@@ -110,4 +111,34 @@ public class Room
         var mapPosition = GetGlobalPositionOfTile(center);
         return mapPosition;
     }
+}
+
+public class Doorway
+{
+    public Vector2Int Position;
+    public Wall Wall;
+    public Room NextRoom;
+}
+
+public enum Wall
+{
+    Top = 0,
+    Bottom = 1,
+    Left = 2,
+    Right = 3
+}
+
+public enum TileType
+{
+    Floor = 0,
+    Wall = 1
+}
+
+public enum RoomType
+{
+    StartingRoom = 0,
+    EnemyRoom = 1,
+    BossRoom = 2,
+    ItemRoom = 3,
+    PortalRoom = 4
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private MapGenerator _mapGenerator; 
+    [SerializeField] private MapSpawner _mapSpawner; 
     [SerializeField] private CharacterStats _characterStats;
     [SerializeField] private MapParameters _mapParameters;
     [SerializeField] private VictoryScreen _victoryScreen;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _mapParameters.UpdateParameters();
-        _mapGenerator.GenerateMapUntilSuccessful();
+        _mapSpawner.SpawnMap();
         _spawnerManager.FillOutMap();
         GetComponent<CameraManager>().FollowPlayer();
         OnGameReset();

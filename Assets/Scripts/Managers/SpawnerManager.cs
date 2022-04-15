@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,7 +19,7 @@ public class SpawnerManager : MonoBehaviour
 
     public void FillOutMap()
     {
-        _playerSpawner.SpawnPlayer(_mapGenerator.StartingRoom);
+        _playerSpawner.SpawnPlayer(_mapGenerator.Rooms.First(t => t.Type == RoomType.StartingRoom));
         SetEnemySpawners();
         SetBossSpawner();
         SpawnHazards();
@@ -29,7 +30,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void SetEnemySpawners()
     {
-        List<Room> rooms = _mapGenerator.EnemyRooms;
+        List<Room> rooms = _mapGenerator.Rooms.Where(t => t.Type == RoomType.EnemyRoom).ToList();
         foreach (var room in rooms)
         {
             var worldPosition = _floorTilemap.GetCellCenterWorld((Vector3Int)room.EntryTileWorldPosition());
@@ -42,7 +43,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void SetBossSpawner()
     {
-        var room = _mapGenerator.BossRoom;
+        var room = _mapGenerator.Rooms.First(t => t.Type == RoomType.BossRoom);
         var worldPosition = _floorTilemap.GetCellCenterWorld((Vector3Int)room.EntryTileWorldPosition());
         var enemySpawner = Instantiate(_enemySpawnerPrefab, worldPosition, Quaternion.identity, _spawnerParent);
         enemySpawner.SetSpawner(new List<EnemyDifficulty>() { _enemyPools.BossList.Rand()}, _floorTilemap, _wallTilemap);
@@ -52,7 +53,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void SpawnHazards()
     {
-        List<Room> rooms = _mapGenerator.EnemyRooms;
+        List<Room> rooms = _mapGenerator.Rooms.Where(t => t.Type == RoomType.EnemyRoom).ToList();
         foreach (var room in rooms)
         {
             var numberOfHazards = UnityEngine.Random.Range(0, 5);
@@ -67,14 +68,14 @@ public class SpawnerManager : MonoBehaviour
 
     private void SpawnPortal()
     {
-        var room = _mapGenerator.EndingRoom;
+        var room = _mapGenerator.Rooms.First(t => t.Type == RoomType.PortalRoom);
         var worldPosition = _floorTilemap.GetCellCenterWorld((Vector3Int)room.GetCenterOfRoom());
         var portal = Instantiate(_portalTriggerPrefab, worldPosition, Quaternion.identity);
     }
 
     private void SpawnPickups()
     {
-        foreach (var room in _mapGenerator.ItemRooms)
+        foreach (var room in _mapGenerator.Rooms.Where(t => t.Type == RoomType.ItemRoom).ToList())
         {
             var worldPosition = _floorTilemap.GetCellCenterWorld((Vector3Int)room.GetCenterOfRoom());
             var item = Instantiate(_upgradeChest, worldPosition, Quaternion.identity);
