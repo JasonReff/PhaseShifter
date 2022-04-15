@@ -5,7 +5,6 @@ public class MeleeAttack : Attack
 {
     [SerializeField] private Vector3 _startingRotation, _endingRotation;
     [SerializeField] private float _swingSpeed;
-
     protected override void Update()
     {
         base.Update();
