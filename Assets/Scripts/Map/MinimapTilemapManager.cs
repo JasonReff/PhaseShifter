@@ -4,6 +4,8 @@ using UnityEngine.Tilemaps;
 public class MinimapTilemapManager : MonoBehaviour
 {
     [SerializeField] private Tilemap _minimapTilemap;
+    [SerializeField] private Transform _iconParent;
+    [SerializeField] private GameObject _bossIcon, _portalIcon, _chestIcon;
     [SerializeField] private Tile _floor, _wall;
 
 
@@ -26,6 +28,7 @@ public class MinimapTilemapManager : MonoBehaviour
         foreach (var doorway in room.Exits)
         {
             CopyRoomToTilemap(doorway.NextRoom);
+            PlaceIconInRoom(doorway.NextRoom);
         }
     }
 
@@ -44,5 +47,30 @@ public class MinimapTilemapManager : MonoBehaviour
                     _minimapTilemap.SetTile(tileCoords, _wall);
             }
         }
+    }
+
+    private void PlaceIconInRoom(Room room)
+    {
+        if (room == null)
+            return;
+        GameObject icon = null;
+        switch (room.Type)
+        {
+            case RoomType.BossRoom:
+                icon = _bossIcon;
+                break;
+            case RoomType.ItemRoom:
+                icon = _chestIcon;
+                break;
+            case RoomType.PortalRoom:
+                icon = _portalIcon;
+                break;
+            default:
+                break;
+        }
+        if (icon == null)
+            return;
+        var position = _minimapTilemap.CellToWorld((Vector3Int)room.GetCenterOfRoom());
+        Instantiate(icon, position, Quaternion.identity, _iconParent);
     }
 }
