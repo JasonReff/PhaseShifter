@@ -111,6 +111,31 @@ public class Room
         var mapPosition = GetGlobalPositionOfTile(center);
         return mapPosition;
     }
+
+    public static Wall GetOppositeWall(Wall wall)
+    {
+        switch (wall)
+        {
+            case Wall.Top:
+                return Wall.Bottom;
+            case Wall.Bottom:
+                return Wall.Top;
+            case Wall.Left:
+                return Wall.Right;
+            case Wall.Right:
+                return Wall.Left;
+            default:
+                return wall;
+        }
+    }
+}
+
+public class Hallway : Room
+{
+    public Hallway(Vector2Int position, TileType[,] tiles, Doorway entry, List<Doorway> exits, int distance) : base(position, tiles, entry, exits, distance)
+    {
+
+    }
 }
 
 public class Doorway
@@ -140,5 +165,6 @@ public enum RoomType
     EnemyRoom = 1,
     BossRoom = 2,
     ItemRoom = 3,
-    PortalRoom = 4
+    PortalRoom = 4,
+    Hallway = 5
 }

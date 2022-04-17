@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: MapParameters
   m_EditorClassIdentifier: 
   StartingLocation: {x: 0, y: 0}
-  MinGridSize: {x: 10, y: 10}
-  MaxGridSize: {x: 12, y: 12}
+  MinGridSize: {x: 8, y: 8}
+  MaxGridSize: {x: 10, y: 10}
   BossRoomSize: {x: 10, y: 10}
-  MaxDistanceFromStart: 5
-  MaxNumberOfRooms: 20
+  HallwaySize: {x: 3, y: 2}
+  MaxDistanceFromStart: 3
+  MaxNumberOfRooms: 10
   Level: 1
-  MinimumEncounterDifficulty: 3
-  MaximumEncounterDifficulty: 5
+  MinimumEncounterDifficulty: 1
+  MaximumEncounterDifficulty: 3

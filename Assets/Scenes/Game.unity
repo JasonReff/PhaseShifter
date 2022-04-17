@@ -2807,6 +2807,7 @@ MonoBehaviour:
   _playerSpawner: {fileID: 1742193193}
   _spawnerParent: {fileID: 1491116576}
   _enemySpawnerPrefab: {fileID: 7983636024440174244, guid: 2afb20a51e4b2184aa97cfc56693f039, type: 3}
+  _minimapTriggerPrefab: {fileID: 4053617845671478981, guid: b9647b5def75278469799bdaea44a36c, type: 3}
   _floorTilemap: {fileID: 385303388}
   _wallTilemap: {fileID: 1660496932}
   _enemyPools: {fileID: 11400000, guid: 8262d9fec3cb2e7478bc136fec1a7d2c, type: 2}

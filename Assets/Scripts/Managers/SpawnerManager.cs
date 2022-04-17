@@ -10,6 +10,7 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private PlayerSpawner _playerSpawner;
     [SerializeField] private Transform _spawnerParent;
     [SerializeField] private EnemySpawner _enemySpawnerPrefab;
+    [SerializeField] private MinimapTrigger _minimapTriggerPrefab;
     [SerializeField] private Tilemap _floorTilemap, _wallTilemap;
     [SerializeField] private EnemyPools _enemyPools;
     [SerializeField] private List<GameObject> _hazardPrefabs = new List<GameObject>();
@@ -21,6 +22,7 @@ public class SpawnerManager : MonoBehaviour
     {
         _playerSpawner.SpawnPlayer(_mapGenerator.Rooms.First(t => t.Type == RoomType.StartingRoom));
         SetEnemySpawners();
+        SetMinimapTriggers();
         SetBossSpawner();
         SpawnHazards();
         SpawnPortal();
@@ -38,6 +40,17 @@ public class SpawnerManager : MonoBehaviour
             enemySpawner.SetSpawner(_enemyPools.GenerateEnemies(_mapParameters.MinimumEncounterDifficulty, _mapParameters.MaximumEncounterDifficulty), _floorTilemap, _wallTilemap);
             enemySpawner.Room = room;
             enemySpawner.GetComponent<MinimapTrigger>().Room = room;
+        }
+    }
+
+    private void SetMinimapTriggers()
+    {
+        List<Room> rooms = _mapGenerator.Rooms.Where(t => t.Type != RoomType.EnemyRoom && t.Type != RoomType.StartingRoom).ToList();
+        foreach (var room in rooms)
+        {
+            var worldPosition = _floorTilemap.GetCellCenterWorld((Vector3Int)room.EntryTileWorldPosition());
+            var trigger = Instantiate(_minimapTriggerPrefab, worldPosition, Quaternion.identity, _spawnerParent);
+            trigger.Room = room;
         }
     }
 

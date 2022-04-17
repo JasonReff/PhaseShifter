@@ -33,8 +33,8 @@ public class MapGenerator : MonoBehaviour
         CreateStartingRoom();
         for (int i = 0; i < _mapParameters.MaxDistanceFromStart; i++)
         {
-            CreateRoomSet();
-            if (_plannedRooms.Count >= _mapParameters.MaxNumberOfRooms)
+            CreateRoomSetWithHallways();
+            if (_plannedRooms.Where(t => t.Type != RoomType.Hallway).ToList().Count >= _mapParameters.MaxNumberOfRooms)
                 break;
         }
         SetEnemyRooms();
@@ -80,7 +80,7 @@ public class MapGenerator : MonoBehaviour
     private void SetEnemyRooms()
     {
         _enemyRooms.Clear();
-        var rooms = _plannedRooms.Where(t => t != _startingRoom).ToList();
+        var rooms = _plannedRooms.Where(t => t != _startingRoom && t.Type != RoomType.Hallway).ToList();
         foreach (var room in rooms)
         {
             _enemyRooms.Add(room);
@@ -149,6 +149,30 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    private void CreateRoomSetWithHallways()
+    {
+        IEnumerable<Room> rooms = _plannedRooms;
+        foreach (var room in rooms.ToList())
+        {
+            if (_plannedRooms.Count >= _mapParameters.MaxNumberOfRooms)
+                break;
+            IEnumerable<Doorway> exits = room.Exits;
+            foreach (var exit in exits.ToList())
+            {
+                if (_plannedRooms.Count >= _mapParameters.MaxNumberOfRooms)
+                    break;
+                if (exit.NextRoom != null)
+                    continue;
+                    
+                foreach (var newRoom in CreateRoomWithHallway(room, exit, room.DistanceFromStart))
+                {
+                    if (newRoom != null)
+                        AddRoomToSpawner(newRoom);
+                }
+            }
+        }
+    }
+
     private void EraseEmptyExits()
     {
         foreach (var room in _plannedRooms.ToList())
@@ -187,6 +211,52 @@ public class MapGenerator : MonoBehaviour
         return currentRoom;
     }
 
+    public Room CreateHallway(Room previousRoom, Doorway previousExit)
+    {
+        var hallwayWidth = _mapParameters.HallwaySize.x;
+        var hallwayLength = _mapParameters.HallwaySize.y;
+        Vector2Int roomSize = new Vector2Int(hallwayWidth, hallwayLength);
+        switch (previousExit.Wall)
+        {
+            case Wall.Left:
+            case Wall.Right:
+                roomSize = new Vector2Int(hallwayLength, hallwayWidth);
+                break;
+        }
+        TileType[,] tiles = SetTiles(roomSize);
+        Vector2Int shift = RoomShift(previousExit.Wall, roomSize);
+        Vector2Int offset = OffsetRoomByOne(previousExit.Wall);
+        Doorway entry = CreateRoomEntry(previousExit, shift);
+        entry.NextRoom = previousRoom;
+        Doorway exit = CreateHallwayExit(entry.Wall, roomSize);
+        Room currentRoom = new Room(previousRoom.GetGlobalPositionOfTile(previousExit.Position) - shift - offset, tiles, entry, new List<Doorway> { exit }, 0);
+        if (IsRoomObstructed(currentRoom))
+            return null;
+        SetEntranceAndExits(currentRoom, previousExit);
+        currentRoom.Type = RoomType.Hallway;
+        return currentRoom;
+    }
+
+    public Doorway CreateHallwayExit(Wall entryWall, Vector2Int roomSize)
+    {
+        var exitWall = Room.GetOppositeWall(entryWall);
+        var exit = CreateDoorwayAlongWall(exitWall, roomSize);
+        return exit;
+    }
+
+    public List<Room> CreateRoomWithHallway(Room previousRoom, Doorway previousExit, int distance, int numberOfExits = 3, bool canShrink = true, bool overrideMaxDistance = false)
+    {
+        var hallway = CreateHallway(previousRoom, previousExit);
+        if (hallway == null)
+            return null;
+        var exit = hallway.Exits.First();
+        var nextRoom = CreateRoom(hallway, exit, distance, numberOfExits, canShrink, overrideMaxDistance);
+        if (nextRoom == null)
+            return null;
+        exit.NextRoom = nextRoom;
+        List<Room> rooms = new List<Room> { hallway, nextRoom };
+        return rooms;
+    }
 
     private TileType[,] SetTiles(Vector2Int roomSize)
     {
@@ -427,5 +497,5 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    
+
 }

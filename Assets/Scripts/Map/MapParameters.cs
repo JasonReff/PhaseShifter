@@ -3,7 +3,7 @@
 [CreateAssetMenu(menuName = "MapParameters")]
 public class MapParameters : ScriptableObject
 {
-    [SerializeField] public Vector2Int StartingLocation, MinGridSize, MaxGridSize, BossRoomSize;
+    [SerializeField] public Vector2Int StartingLocation, MinGridSize, MaxGridSize, BossRoomSize, HallwaySize;
     [SerializeField] public int MaxDistanceFromStart, MaxNumberOfRooms, Level = 1, MinimumEncounterDifficulty = 1, MaximumEncounterDifficulty = 3;
 
     public void UpdateParameters()

@@ -31,6 +31,8 @@ public class MinimapTilemapManager : MonoBehaviour
 
     private void CopyRoomToTilemap(Room room)
     {
+        if (room == null)
+            return;
         for (int x = 0; x < room.Tiles.GetLength(0); x++)
         {
             for (int y = 0; y < room.Tiles.GetLength(1); y++)
