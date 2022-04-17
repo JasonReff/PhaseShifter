@@ -28,7 +28,7 @@ public class EnemyHealth : CharacterHealthController
 
     public override void MakeVulnerable()
     {
-        if (_phaseController.Phase == _phaseController.VulnerablePhase)
+        if (_phaseController.VulnerablePhases.Contains(_phaseController.Phase))
         {
             base.MakeVulnerable();
             gameObject.layer = 6;

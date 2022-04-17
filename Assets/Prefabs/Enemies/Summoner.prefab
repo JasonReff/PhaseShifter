@@ -42,6 +42,18 @@ PrefabInstance:
       propertyPath: _vulnerablePhase
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1068002552699608943, guid: 4de5628455df67c4aa327ac6760d15ca, type: 3}
+      propertyPath: _vulnerablePhases.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1068002552699608943, guid: 4de5628455df67c4aa327ac6760d15ca, type: 3}
+      propertyPath: _vulnerablePhases.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1068002552699608943, guid: 4de5628455df67c4aa327ac6760d15ca, type: 3}
+      propertyPath: _vulnerablePhases.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4582541072707994172, guid: 4de5628455df67c4aa327ac6760d15ca, type: 3}
       propertyPath: m_Controller
       value: 
