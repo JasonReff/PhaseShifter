@@ -77,6 +77,7 @@ public class EnemySpawner : RoomTrigger
         SpawnEnemies();
         SpawnWalls();
         MovePlayer();
+        OnSpawnerTriggered?.Invoke(this);
     }
 
     private void MovePlayer()

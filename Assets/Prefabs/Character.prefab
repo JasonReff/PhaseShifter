@@ -5018,6 +5018,8 @@ GameObject:
   - component: {fileID: -9114459203192109826}
   - component: {fileID: 7454827895938792662}
   - component: {fileID: 1686775758}
+  - component: {fileID: -5848197839580328932}
+  - component: {fileID: -7502988375816410354}
   m_Layer: 10
   m_Name: Character
   m_TagString: Player
@@ -5149,6 +5151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blueAttack: {fileID: 7557327042617792147}
   _redAttack: {fileID: 6010743812405894572}
+  _ultimateAttack: {fileID: 0}
   _currentAttack: {fileID: 7557327042617792147}
 --- !u!114 &7557327042617792147
 MonoBehaviour:
@@ -5187,6 +5190,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 7557327042617792142}
   _blue: {fileID: 21300000, guid: 3da6486ff2883e048bc042dbc6272eb9, type: 3}
   _red: {fileID: 21300000, guid: 4a37715b540bf8d40bc64eaeb027cf8d, type: 3}
+  _purple: {fileID: 0}
 --- !u!114 &-9114459203192109826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5249,3 +5253,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5848197839580328932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7557327042617792141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3746ee37edb45eb4abada24be44f7b21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentCharge: 0
+  _maxCharge: 10
+--- !u!114 &-7502988375816410354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7557327042617792141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e32ea6e2b5a41d4d984f70a0fdc93a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ultimate: {fileID: -5848197839580328932}
+  _decayRate: 3
+  _chargeLoss: 1

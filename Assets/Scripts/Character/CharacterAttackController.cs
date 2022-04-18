@@ -6,6 +6,7 @@ public class CharacterAttackController : MonoBehaviour
 {
     [SerializeField] private PlayerAttack _blueAttack;
     [SerializeField] private PlayerAttack _redAttack;
+    [SerializeField] private PlayerAttack _ultimateAttack;
     [SerializeField] private PlayerAttack _currentAttack;
 
     private void OnEnable()
@@ -47,6 +48,9 @@ public class CharacterAttackController : MonoBehaviour
                 break;
             case Phase.Blue:
                 _currentAttack = _blueAttack;
+                break;
+            case Phase.Purple:
+                _currentAttack = _ultimateAttack;
                 break;
         }
     }

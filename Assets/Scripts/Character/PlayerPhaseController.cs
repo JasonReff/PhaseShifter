@@ -3,7 +3,7 @@
 public class PlayerPhaseController : CharacterPhaseController
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private Sprite _blue, _red;
+    [SerializeField] private Sprite _blue, _red, _purple;
 
     protected override void ChangePhase(Phase phase)
     {

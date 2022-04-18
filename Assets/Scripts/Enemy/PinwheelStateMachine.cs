@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PinwheelStateMachine : EnemyStateMachine
 {
@@ -8,6 +9,7 @@ public class PinwheelStateMachine : EnemyStateMachine
     [SerializeField] private RuntimeAnimatorController _redController, _blueController;
     [SerializeField] private int _transformationHealthThreshold;
     [SerializeField] private float _blueRange, _blueFollowDistance;
+    [SerializeField] private List<Phase> _blueVulnerablePhases;
 
     protected override void OnEnable()
     {
@@ -28,7 +30,7 @@ public class PinwheelStateMachine : EnemyStateMachine
             _currentAttack = _blueAttack;
             _animator.runtimeAnimatorController = _blueController;
             _animator.SetTrigger("Transform");
-            _phaseController.VulnerablePhase = Phase.Blue;
+            _phaseController.VulnerablePhases = _blueVulnerablePhases;
             _maxAttackRange = _blueRange;
             _minFollowDistance = _blueFollowDistance;
         }

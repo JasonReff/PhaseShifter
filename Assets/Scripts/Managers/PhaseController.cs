@@ -10,7 +10,19 @@ public abstract class PhaseController : MonoBehaviour
     public static Phase Phase;
     private List<EnemyPhaseController> _enemies = new List<EnemyPhaseController>();
     public static event Action<Phase> OnPhaseChanged;
-    
+
+
+    private void OnEnable()
+    {
+        PlayerUltimateMeter.OnUltimateCharged += ChangePhaseToPurple;
+        PlayerUltimateMeter.OnUltimateEmptied += RandomPhase;
+    }
+
+    private void OnDisable()
+    {
+        PlayerUltimateMeter.OnUltimateCharged -= ChangePhaseToPurple;
+        PlayerUltimateMeter.OnUltimateEmptied -= RandomPhase;
+    }
 
     protected virtual void ChangePhase()
     {
@@ -29,8 +41,6 @@ public abstract class PhaseController : MonoBehaviour
                 Phase = Phase.Blue;
                 break;
             default:
-                var random = UnityEngine.Random.Range(0, 2);
-                Phase = (Phase)random;
                 break;
         }
         OnPhaseChanged?.Invoke(Phase);
@@ -41,17 +51,30 @@ public abstract class PhaseController : MonoBehaviour
         if (_changePhaseIfOnlyOneEnemyType == false)
             return null;
         if (EnemyManager.Enemies.Count == 0) return null;
-        if (EnemyManager.Enemies.TrueForAll(t => t.GetComponent<EnemyPhaseController>().VulnerablePhase == Phase.Red))
+        if (EnemyManager.Enemies.TrueForAll(t => t.GetComponent<EnemyPhaseController>().VulnerablePhases.Contains(Phase.Red)))
             return Phase.Red;
-        else if (EnemyManager.Enemies.TrueForAll(t => t.GetComponent<EnemyPhaseController>().VulnerablePhase == Phase.Blue))
+        else if (EnemyManager.Enemies.TrueForAll(t => t.GetComponent<EnemyPhaseController>().VulnerablePhases.Contains(Phase.Blue)))
             return Phase.Blue;
         else return null;
+    }
+
+    private void ChangePhaseToPurple()
+    {
+        Phase = Phase.Purple;
+        OnPhaseChanged?.Invoke(Phase);
+    }
+
+    private void RandomPhase()
+    {
+        Phase = (Phase)UnityEngine.Random.Range(0, 2);
+        OnPhaseChanged?.Invoke(Phase);
     }
 }
 
 [System.Serializable]
 public enum Phase
 {
-    Red,
-    Blue
+    Red = 0,
+    Blue = 1,
+    Purple = 2
 }

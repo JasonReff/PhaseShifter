@@ -48,6 +48,7 @@ public class MapGenerator : MonoBehaviour
     private void ClearRooms()
     {
         _plannedRooms.Clear();
+        _enemyRooms.Clear();
         _tilePositions.Clear();
     }
 
@@ -79,7 +80,6 @@ public class MapGenerator : MonoBehaviour
 
     private void SetEnemyRooms()
     {
-        _enemyRooms.Clear();
         var rooms = _plannedRooms.Where(t => t != _startingRoom && t.Type != RoomType.Hallway).ToList();
         foreach (var room in rooms)
         {
@@ -163,8 +163,10 @@ public class MapGenerator : MonoBehaviour
                     break;
                 if (exit.NextRoom != null)
                     continue;
-                    
-                foreach (var newRoom in CreateRoomWithHallway(room, exit, room.DistanceFromStart))
+                var roomAndHallway = CreateRoomWithHallway(room, exit, room.DistanceFromStart);
+                if (roomAndHallway == null)
+                    continue;
+                foreach (var newRoom in roomAndHallway)
                 {
                     if (newRoom != null)
                         AddRoomToSpawner(newRoom);
