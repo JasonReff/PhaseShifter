@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxGridSize: {x: 10, y: 10}
   BossRoomSize: {x: 10, y: 10}
   HallwaySize: {x: 3, y: 2}
-  MaxDistanceFromStart: 3
+  MaxDistanceFromStart: 5
   MaxNumberOfRooms: 10
   Level: 1
   MinimumEncounterDifficulty: 1

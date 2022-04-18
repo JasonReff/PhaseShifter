@@ -5109,8 +5109,6 @@ MonoBehaviour:
   _moveSpeed: 3
   _rb: {fileID: 7454827895938792662}
   _animator: {fileID: 1686775758}
-  _red: {fileID: 22100000, guid: 6707e0b48f02ec14c93586a5d3817804, type: 2}
-  _blue: {fileID: 9100000, guid: 2f5bddfb3c87dbe4e9b93b21f82be64b, type: 2}
 --- !u!61 &7557327042617792144
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5151,7 +5149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blueAttack: {fileID: 7557327042617792147}
   _redAttack: {fileID: 6010743812405894572}
-  _ultimateAttack: {fileID: 0}
+  _ultimateAttack: {fileID: 6010743812405894572}
   _currentAttack: {fileID: 7557327042617792147}
 --- !u!114 &7557327042617792147
 MonoBehaviour:
@@ -5187,10 +5185,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _phase: 1
-  _spriteRenderer: {fileID: 7557327042617792142}
-  _blue: {fileID: 21300000, guid: 3da6486ff2883e048bc042dbc6272eb9, type: 3}
-  _red: {fileID: 21300000, guid: 4a37715b540bf8d40bc64eaeb027cf8d, type: 3}
-  _purple: {fileID: 0}
+  _animator: {fileID: 1686775758}
+  _red: {fileID: 22100000, guid: 6707e0b48f02ec14c93586a5d3817804, type: 2}
+  _blue: {fileID: 9100000, guid: 2f5bddfb3c87dbe4e9b93b21f82be64b, type: 2}
+  _purple: {fileID: 9100000, guid: 2f5bddfb3c87dbe4e9b93b21f82be64b, type: 2}
 --- !u!114 &-9114459203192109826
 MonoBehaviour:
   m_ObjectHideFlags: 0

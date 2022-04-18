@@ -2,24 +2,27 @@
 
 public class PlayerPhaseController : CharacterPhaseController
 {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private Sprite _blue, _red, _purple;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private RuntimeAnimatorController _red, _blue, _purple;
 
     protected override void ChangePhase(Phase phase)
     {
         base.ChangePhase(phase);
-        ChangeSprite();
+        ChangeAnimator(phase);
     }
 
-    private void ChangeSprite()
+    private void ChangeAnimator(Phase phase)
     {
-        switch (Phase)
+        switch (phase)
         {
             case Phase.Red:
-                _spriteRenderer.sprite = _red;
+                _animator.runtimeAnimatorController = _red;
                 break;
             case Phase.Blue:
-                _spriteRenderer.sprite = _blue;
+                _animator.runtimeAnimatorController = _blue;
+                break;
+            case Phase.Purple:
+                _animator.runtimeAnimatorController = _purple;
                 break;
         }
     }

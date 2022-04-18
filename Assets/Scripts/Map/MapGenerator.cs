@@ -41,7 +41,8 @@ public class MapGenerator : MonoBehaviour
         CreateBossRoom();
         bool endingRoomCreated = CreateEndingRoom();
         ChooseItemRooms();
-        EraseEmptyExits();
+        for (int i = 0; i < 2; i++)
+            EraseEmptyExits();
         return endingRoomCreated;
     }
 
@@ -154,12 +155,12 @@ public class MapGenerator : MonoBehaviour
         IEnumerable<Room> rooms = _plannedRooms;
         foreach (var room in rooms.ToList())
         {
-            if (_plannedRooms.Count >= _mapParameters.MaxNumberOfRooms)
+            if (_plannedRooms.Where(t => t.Type != RoomType.Hallway).ToList().Count >= _mapParameters.MaxNumberOfRooms)
                 break;
             IEnumerable<Doorway> exits = room.Exits;
             foreach (var exit in exits.ToList())
             {
-                if (_plannedRooms.Count >= _mapParameters.MaxNumberOfRooms)
+                if (_plannedRooms.Where(t => t.Type != RoomType.Hallway).ToList().Count >= _mapParameters.MaxNumberOfRooms)
                     break;
                 if (exit.NextRoom != null)
                     continue;
@@ -177,16 +178,25 @@ public class MapGenerator : MonoBehaviour
 
     private void EraseEmptyExits()
     {
-        foreach (var room in _plannedRooms.ToList())
+        for (int i = _plannedRooms.Count - 1; i >= 0; i--)
         {
+            var room = _plannedRooms[i];
             if (room == null)
             {
-                _plannedRooms.Remove(room);
+                RemoveRoom(room);
                 continue;
+            }
+            if (room.Type == RoomType.Hallway && !_plannedRooms.Contains(room.Exits.First().NextRoom))
+            {
+                RemoveRoom(room);
+                var previousRoom = room.Entry.NextRoom;
+                var previousExit = previousRoom.Exits.Find(t => t.NextRoom == room);
+                previousExit.NextRoom = null;
+                previousRoom.Tiles[previousExit.Position.x, previousExit.Position.y] = TileType.Wall;
             }
             foreach (var exit in room.Exits)
             {
-                if (exit.NextRoom == null)
+                if (!_plannedRooms.Contains(exit.NextRoom) || exit.NextRoom == null)
                 {
                     room.Tiles[exit.Position.x, exit.Position.y] = TileType.Wall;
                 }
@@ -497,7 +507,5 @@ public class MapGenerator : MonoBehaviour
         door.Wall = wall;
         return door;
     }
-
-
 
 }
