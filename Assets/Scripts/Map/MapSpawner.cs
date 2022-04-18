@@ -7,7 +7,7 @@ public class MapSpawner : MonoBehaviour
 {
     [SerializeField] private MapGenerator _generator;
     [SerializeField] private Tilemap _floorTilemap, _wallTilemap;
-    [SerializeField] private Tile _floor, _wall;
+    [SerializeField] private StageData _stage;
 
     public static event Action<Room> StartingRoomSpawned;
 
@@ -34,9 +34,9 @@ public class MapSpawner : MonoBehaviour
             {
                 Vector3Int tileCoords = new Vector3Int(x + lowerLeft.x, y + lowerLeft.y, 0);
                 if (room.Tiles[x, y] == TileType.Floor)
-                    _floorTilemap.SetTile(tileCoords, _floor);
+                    _floorTilemap.SetTile(tileCoords, _stage.Floor);
                 else if (room.Tiles[x, y] == TileType.Wall)
-                    _wallTilemap.SetTile(tileCoords, _wall);
+                    _wallTilemap.SetTile(tileCoords, _stage.Wall);
             }
         }
         if (room.Type == RoomType.StartingRoom)

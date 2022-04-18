@@ -1462,8 +1462,7 @@ MonoBehaviour:
   _bossIcon: {fileID: 1070333380630243665, guid: d863e20a3d2701745873c4df10f56a59, type: 3}
   _portalIcon: {fileID: 9024364932082885223, guid: 13e15b50769a7e043847c19f0c07d52e, type: 3}
   _chestIcon: {fileID: 5682243452730389710, guid: 9d73f6e5f6a3ac9408152fea5560b661, type: 3}
-  _floor: {fileID: 11400000, guid: fe35455b825eba043b56f38120aaed16, type: 2}
-  _wall: {fileID: 11400000, guid: 70c8b43e12c305b429712d467ff35440, type: 2}
+  _stage: {fileID: 11400000, guid: f1c5329154d671d41ac9261a1fb1a606, type: 2}
 --- !u!1 &185944131
 GameObject:
   m_ObjectHideFlags: 0
@@ -6002,8 +6001,7 @@ MonoBehaviour:
   _generator: {fileID: 1347728461}
   _floorTilemap: {fileID: 385303388}
   _wallTilemap: {fileID: 1660496932}
-  _floor: {fileID: 11400000, guid: fe35455b825eba043b56f38120aaed16, type: 2}
-  _wall: {fileID: 11400000, guid: 70c8b43e12c305b429712d467ff35440, type: 2}
+  _stage: {fileID: 11400000, guid: f1c5329154d671d41ac9261a1fb1a606, type: 2}
 --- !u!1 &1352316753
 GameObject:
   m_ObjectHideFlags: 0

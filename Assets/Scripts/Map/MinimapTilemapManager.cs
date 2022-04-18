@@ -6,7 +6,7 @@ public class MinimapTilemapManager : MonoBehaviour
     [SerializeField] private Tilemap _minimapTilemap;
     [SerializeField] private Transform _iconParent;
     [SerializeField] private GameObject _bossIcon, _portalIcon, _chestIcon;
-    [SerializeField] private Tile _floor, _wall;
+    [SerializeField] private StageData _stage;
 
 
     private void OnEnable()
@@ -42,9 +42,9 @@ public class MinimapTilemapManager : MonoBehaviour
             {
                 Vector3Int tileCoords = new Vector3Int(x + room.GlobalPosition.x, y + room.GlobalPosition.y, 0);
                 if (room.Tiles[x, y] == TileType.Floor)
-                    _minimapTilemap.SetTile(tileCoords, _floor);
+                    _minimapTilemap.SetTile(tileCoords, _stage.Floor);
                 else if (room.Tiles[x, y] == TileType.Wall)
-                    _minimapTilemap.SetTile(tileCoords, _wall);
+                    _minimapTilemap.SetTile(tileCoords, _stage.Wall);
             }
         }
     }
