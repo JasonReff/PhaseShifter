@@ -6,8 +6,7 @@ public abstract class Attack : MonoBehaviour
 {
     [SerializeField] private int _damage;
     [SerializeField] private Phase _phase;
-    [SerializeField] private float _lifetime, _knockback;
-    [SerializeField] protected float _currentLifetime = 0;
+    [SerializeField] private float _knockback;
     [SerializeField] protected AudioClip _soundEffect;
     public Vector2 AttackDirection;
 
@@ -22,7 +21,7 @@ public abstract class Attack : MonoBehaviour
 
     protected virtual IEnumerator DespawnCoroutine()
     {
-        yield return new WaitForSeconds(_lifetime);
+        yield return null;
         Disappear();
     }
 
