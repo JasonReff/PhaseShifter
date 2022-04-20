@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class Attack : MonoBehaviour
@@ -14,13 +15,15 @@ public abstract class Attack : MonoBehaviour
 
     public static event Action<Vector3> OnDamageDealt;
 
-    protected virtual void Update()
+    private void Awake()
     {
-        _currentLifetime += Time.deltaTime;
-        if (_currentLifetime >= _lifetime)
-        {
-            Disappear();
-        }
+        StartCoroutine(DespawnCoroutine());
+    }
+
+    protected virtual IEnumerator DespawnCoroutine()
+    {
+        yield return new WaitForSeconds(_lifetime);
+        Disappear();
     }
 
     protected virtual void Disappear()
