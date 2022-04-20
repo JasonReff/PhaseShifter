@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UltimatePickup
       objectReference: {fileID: 0}
+    - target: {fileID: 7834091986881454408, guid: 637890c2c893bcd4cbc9e77aff3170c5, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -6987257988970044198, guid: 637890c2c893bcd4cbc9e77aff3170c5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 637890c2c893bcd4cbc9e77aff3170c5, type: 3}
