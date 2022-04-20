@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7767549861717379884}
   - component: {fileID: 7246102338210532294}
   m_Layer: 8
-  m_Name: Player Projectile
+  m_Name: Player Standard Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,10 +146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 1
   _phase: 1
-  _lifetime: 2
   _knockback: 10
-  _currentLifetime: 0
   _soundEffect: {fileID: 8300000, guid: 26ce72b491b715c41b3efce403b7f8c2, type: 3}
   AttackDirection: {x: 0, y: 0}
-  _shotSpeed: 600
+  _shotSpeed: 8
+  _range: 5
   _rb: {fileID: 5911986966644524686}
