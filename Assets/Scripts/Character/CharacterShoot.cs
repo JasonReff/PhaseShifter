@@ -20,7 +20,7 @@ public class CharacterShoot : PlayerAttack
         projectile.transform.Rotate(0, 0, Vector2.SignedAngle(Vector2.right, attackDirection));
         projectile.AttackDirection = attackDirection;
         projectile.Knockback *= _stats.Stats.KnockbackMultiplier;
-        projectile.Rb.AddForce(attackDirection * projectile.ShotSpeed * _stats.Stats.ShotSpeedMultiplier);
+        projectile.Rb.AddForce(attackDirection * projectile.ShotSpeed * _stats.Stats.ShotSpeedMultiplier, ForceMode2D.Impulse);
     }
 
     public IEnumerator BurstCoroutine(Vector2 attackDirection, float shotDelay)

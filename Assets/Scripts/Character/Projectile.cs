@@ -12,7 +12,7 @@ public class Projectile : Attack
 
     protected override IEnumerator DespawnCoroutine()
     {
-        yield return new WaitForSeconds(_shotSpeed * _range);
+        yield return new WaitForSeconds(_range/_shotSpeed);
         Disappear();
     }
 

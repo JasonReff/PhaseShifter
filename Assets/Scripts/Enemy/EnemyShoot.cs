@@ -20,6 +20,6 @@ public class EnemyShoot : EnemyAttack
         Projectile projectile = Instantiate(_projectile, (Vector2)transform.position + attackDirection, Quaternion.identity);
         projectile.AttackDirection = attackDirection;
         projectile.transform.Rotate(0, 0, Vector2.SignedAngle(Vector2.right, attackDirection));
-        projectile.Rb.AddForce(attackDirection * projectile.ShotSpeed);
+        projectile.Rb.AddForce(attackDirection * projectile.ShotSpeed, ForceMode2D.Impulse);
     }
 }
