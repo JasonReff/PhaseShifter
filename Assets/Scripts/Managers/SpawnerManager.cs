@@ -37,7 +37,7 @@ public class SpawnerManager : MonoBehaviour
         {
             var worldPosition = _floorTilemap.GetCellCenterWorld((Vector3Int)room.EntryTileWorldPosition());
             var enemySpawner = Instantiate(_enemySpawnerPrefab, worldPosition, Quaternion.identity, _spawnerParent);
-            enemySpawner.SetSpawner(_enemyPools.GenerateEnemies(_mapParameters.MinimumEncounterDifficulty, _mapParameters.MaximumEncounterDifficulty), _floorTilemap, _wallTilemap);
+            enemySpawner.SetSpawner(_enemyPools.GenerateEnemyWaves(_mapParameters.MinimumEncounterDifficulty, _mapParameters.MaximumEncounterDifficulty), _floorTilemap, _wallTilemap);
             enemySpawner.Room = room;
             enemySpawner.GetComponent<MinimapTrigger>().Room = room;
         }
@@ -59,7 +59,7 @@ public class SpawnerManager : MonoBehaviour
         var room = _mapGenerator.Rooms.First(t => t.Type == RoomType.BossRoom);
         var worldPosition = _floorTilemap.GetCellCenterWorld((Vector3Int)room.EntryTileWorldPosition());
         var enemySpawner = Instantiate(_enemySpawnerPrefab, worldPosition, Quaternion.identity, _spawnerParent);
-        enemySpawner.SetSpawner(new List<EnemyDifficulty>() { _enemyPools.BossList.Rand()}, _floorTilemap, _wallTilemap);
+        enemySpawner.SetBossSpawner(_enemyPools.BossList.Rand(), _floorTilemap, _wallTilemap);
         enemySpawner.Room = room;
         enemySpawner.GetComponent<MinimapTrigger>().Room = room;
     }
