@@ -9,12 +9,20 @@ public class CharacterMelee : PlayerAttack
     [SerializeField] private TestSettings _testSettings;
     [SerializeField] private SpriteRenderer _renderer;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (_testSettings.BoxCollidersVisible)
-            _renderer.sprite = _testSettings.BoxColliderSprite;
-        else
-            _renderer.sprite = null;
+        base.Awake();
+        _healthController = GetComponentInParent<PlayerHealthController>();
+        BoxColliderSettings();
+
+
+        void BoxColliderSettings()
+        {
+            if (_testSettings.BoxCollidersVisible)
+                _renderer.sprite = _testSettings.BoxColliderSprite;
+            else
+                _renderer.sprite = null;
+        }
     }
 
     public override void Attack(Vector2 attackDirection)

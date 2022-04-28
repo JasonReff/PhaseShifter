@@ -13,7 +13,7 @@ public abstract class PlayerAttack : CharacterAttack
     public static event Action<Vector2> OnPlayerShoot;
     public static event Action OnPlayerMelee;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _rb = GetComponentInParent<Rigidbody2D>();
     }
