@@ -22,7 +22,7 @@ public class PlayerUpgradeTrishot : PlayerUpgrade
 
     private void AdditionalShots(Vector2 attackDirection)
     {
-        _characterShoot.ShootInDirection(Quaternion.Euler(0, 0, 10) * attackDirection);
-        _characterShoot.ShootInDirection(Quaternion.Euler(0, 0, -10) * attackDirection);
+        _characterShoot.ShootInDirection(Quaternion.Euler(0, 0, 10) * attackDirection, _characterShoot.Projectile, _characterShoot.BulletSpread);
+        _characterShoot.ShootInDirection(Quaternion.Euler(0, 0, -10) * attackDirection, _characterShoot.Projectile, _characterShoot.BulletSpread);
     }
 }
