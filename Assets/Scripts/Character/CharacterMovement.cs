@@ -27,7 +27,8 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!_canMove)
             return;
-        _rb.MovePosition((Vector2)transform.position + _input * _moveSpeed * Time.deltaTime);
+        //_rb.MovePosition((Vector2)transform.position + _input * _moveSpeed * Time.deltaTime);
+        _rb.AddForce(_input * _moveSpeed * Time.deltaTime);
     }
 
     private void Update()

@@ -53,3 +53,5 @@ MonoBehaviour:
   _projectile: {fileID: 7246102338210532294, guid: cd4270c5d016639418ccd6e4c9c3a718, type: 3}
   _stats: {fileID: 11400000, guid: f7e5b0bc694de3c41932b4234390c85a, type: 2}
   _bulletSpreadInDegrees: 20
+  _blowback: 2
+  _rigidbody: {fileID: 0}

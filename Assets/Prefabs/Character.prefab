@@ -5106,7 +5106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bef5ec5e01b70438b53bf5d8285bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
+  _moveSpeed: 1000
   _rb: {fileID: 7454827895938792662}
   _animator: {fileID: 1686775758}
 --- !u!61 &7557327042617792144
@@ -5270,6 +5270,14 @@ PrefabInstance:
       propertyPath: _animator
       value: 
       objectReference: {fileID: 1686775758}
+    - target: {fileID: 425326136578383156, guid: 653b9115abedc8446bc0793f8028f477, type: 3}
+      propertyPath: _blowback
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 425326136578383156, guid: 653b9115abedc8446bc0793f8028f477, type: 3}
+      propertyPath: _rigidbody
+      value: 
+      objectReference: {fileID: 7454827895938792662}
     - target: {fileID: 3402663680973116018, guid: 653b9115abedc8446bc0793f8028f477, type: 3}
       propertyPath: m_Name
       value: ProjectileAttack

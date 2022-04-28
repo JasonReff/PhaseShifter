@@ -22,6 +22,8 @@ MonoBehaviour:
   _projectile: {fileID: 1885419843484439568, guid: 6edf369f6f6b4b146aba8d55c73a38ee, type: 3}
   _stats: {fileID: 11400000, guid: f7e5b0bc694de3c41932b4234390c85a, type: 2}
   _bulletSpreadInDegrees: 30
+  _blowback: 4
+  _rigidbody: {fileID: 0}
   _numberOfProjectiles: 5
 --- !u!1001 &5598909743471874098
 PrefabInstance:
