@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyState
+public class EnemyState : State
 {
     protected EnemyStateMachine _enemyStateMachine;
     protected float _distanceToPlayer;
@@ -13,19 +13,9 @@ public class EnemyState
         _player = player;
     }
 
-    public virtual void PrepareState()
-    {
-
-    }
-
-    public virtual void UpdateState()
+    public override void UpdateState()
     {
         GetRelativePlayerPosition();
-    }
-
-    public virtual void EndState()
-    {
-
     }
 
     private void GetRelativePlayerPosition()

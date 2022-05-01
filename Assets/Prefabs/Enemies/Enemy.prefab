@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60877072cf179c04eb9103c95bc7e0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 2
+  _moveSpeed: 200
 --- !u!114 &-3031337312316605323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +88,15 @@ PrefabInstance:
       propertyPath: _ultimate
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 898718202102703959, guid: 08f1dbb91c7f1fc4eb3b2d0e3f0c7eae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1583506348794111128, guid: 08f1dbb91c7f1fc4eb3b2d0e3f0c7eae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6289059203895181431, guid: 08f1dbb91c7f1fc4eb3b2d0e3f0c7eae, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
