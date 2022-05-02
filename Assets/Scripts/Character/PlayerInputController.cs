@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
-    [SerializeField] private InputActionReference _movement, _attack, _aiming;
+    [SerializeField] private InputActionReference _movement, _attack, _stickAiming, _mouseAiming;
     private Camera _camera;
     public static event Action<Vector2> OnMovementInput, OnAimInput, OnMouseMovement;
     public static event Action OnAttackStart, OnAttackStop, OnMovementStop;
@@ -18,13 +18,15 @@ public class PlayerInputController : MonoBehaviour
 
         _movement.action.Enable();
         _attack.action.Enable();
-        _aiming.action.Enable();
+        _stickAiming.action.Enable();
+        _mouseAiming.action.Enable();
 
         _movement.action.performed += MovementInput;
         _movement.action.canceled += StopMovement;
         _attack.action.started += AttackStart;
         _attack.action.canceled += AttackStop;
-        _aiming.action.performed += AimInput;
+        _stickAiming.action.performed += StickAim;
+        _mouseAiming.action.performed += MouseAim;
     }
 
     private void OnDisable()
@@ -33,7 +35,8 @@ public class PlayerInputController : MonoBehaviour
         _movement.action.canceled -= StopMovement;
         _attack.action.started -= AttackStart;
         _attack.action.canceled -= AttackStop;
-        _aiming.action.performed -= AimInput;
+        _stickAiming.action.performed -= StickAim;
+        _mouseAiming.action.performed -= MouseAim;
     }
 
     private void MovementInput(InputAction.CallbackContext context)
@@ -57,16 +60,16 @@ public class PlayerInputController : MonoBehaviour
         OnAttackStop?.Invoke();
     }
 
-    private void AimInput(InputAction.CallbackContext context)
+    private void MouseAim(InputAction.CallbackContext context)
     {
+
         var aiming = context.ReadValue<Vector2>();
-        //if using controller
-        if (false)
-            OnAimInput?.Invoke(aiming);
-        //if using mouse
-        else if (true)
-            OnMouseMovement?.Invoke(_camera.ScreenToWorldPoint(aiming));
+        OnMouseMovement?.Invoke(_camera.ScreenToWorldPoint(aiming));
     }
 
-    
+    private void StickAim(InputAction.CallbackContext context)
+    {
+        var aiming = context.ReadValue<Vector2>();
+        OnAimInput?.Invoke(aiming);
+    }
 }

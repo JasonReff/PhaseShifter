@@ -3897,7 +3897,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movement: {fileID: 6345111183829003691, guid: f27f0fffed6ff974ea5eb6a925830fd3, type: 3}
   _attack: {fileID: 8497873148138516009, guid: f27f0fffed6ff974ea5eb6a925830fd3, type: 3}
-  _aiming: {fileID: -8731987059917644355, guid: f27f0fffed6ff974ea5eb6a925830fd3, type: 3}
+  _stickAiming: {fileID: -8731987059917644355, guid: f27f0fffed6ff974ea5eb6a925830fd3, type: 3}
+  _mouseAiming: {fileID: 2347809235979334967, guid: f27f0fffed6ff974ea5eb6a925830fd3, type: 3}
 --- !u!114 &432706939
 MonoBehaviour:
   m_ObjectHideFlags: 0
