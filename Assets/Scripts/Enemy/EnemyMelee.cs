@@ -18,7 +18,7 @@ public class EnemyMelee : EnemyAttack
             if (playerHealth.Vulnerable)
             {
                 playerHealth.TakeDamage(1);
-                playerHealth.GetComponent<Rigidbody2D>().AddForce(AttackDirection() * _meleeStats.Knockback, ForceMode2D.Impulse);
+                playerHealth.GetComponent<Rigidbody2D>().AddForce(_attackDirection * _meleeStats.Knockback, ForceMode2D.Impulse);
             }
         }
     }

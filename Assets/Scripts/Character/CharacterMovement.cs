@@ -13,12 +13,16 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerInputController.OnMovementInput += MoveCharacter;
+        PlayerInputController.OnMovementStop += StopMoving;
         CharacterMelee.CanMove += SetMovement;
         GetComponent<PlayerHealthController>().OnDeath += OnDeath;
     }
 
     private void OnDisable()
     {
+        PlayerInputController.OnMovementInput -= MoveCharacter;
+        PlayerInputController.OnMovementStop -= StopMoving;
         CharacterMelee.CanMove -= SetMovement;
         GetComponent<PlayerHealthController>().OnDeath -= OnDeath;
     }
@@ -27,7 +31,6 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!_canMove)
             return;
-        //_rb.MovePosition((Vector2)transform.position + _input * _moveSpeed * Time.deltaTime);
         _rb.AddForce(_input * _moveSpeed * Time.deltaTime);
     }
 
@@ -38,16 +41,25 @@ public class CharacterMovement : MonoBehaviour
             _input = Vector2.zero;
             return;
         }
-        _input.x = Input.GetAxisRaw("Horizontal");
-        _input.y = Input.GetAxisRaw("Vertical");
-
-        MovementAnimation();
     }
 
-    private void MovementAnimation()
+
+
+    private void MoveCharacter(Vector2 input)
     {
-        _animator.SetFloat("HorizontalVelocity", _input.x);
-        _animator.SetFloat("VerticalVelocity", _input.y);
+        _input = input;
+        MovementAnimation(true);
+    }
+
+    private void StopMoving()
+    {
+        _input = Vector2.zero;
+        MovementAnimation(false);
+    }
+
+    void MovementAnimation(bool isMoving)
+    {
+        _animator.SetBool("Walking", isMoving);
     }
 
     private void SetMovement(bool canMove)

@@ -11,32 +11,32 @@ public class CharacterAttackController : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerInputController.OnAttackStart += AttackStart;
+        PlayerInputController.OnAttackStop += AttackStop;
         PhaseController.OnPhaseChanged += ChangeAttack;
     }
 
     private void OnDisable()
     {
+        PlayerInputController.OnAttackStart -= AttackStart;
+        PlayerInputController.OnAttackStop -= AttackStop;
         PhaseController.OnPhaseChanged -= ChangeAttack;
     }
 
-    private void Update()
+    private void AttackStart()
     {
-        if (Input.GetButton("Fire1"))
+        if (_currentAttack.Chargeable)
         {
-            if (_currentAttack.Chargeable)
-            {
-                _currentAttack.ChargeAttack();
-            }
-            else
-                _currentAttack.TryAttack();
+            _currentAttack.ChargeAttack();
         }
-        else if (Input.GetButtonUp("Fire1"))
-        {
-            if (_currentAttack.Chargeable)
-            {
-                _currentAttack.TryAttack();
-            }
-        }
+        else
+            _currentAttack.TryAttack();
+    }
+
+    private void AttackStop()
+    {
+        if (_currentAttack.Chargeable)
+            _currentAttack.TryAttack();
     }
 
     private void ChangeAttack(Phase phase)

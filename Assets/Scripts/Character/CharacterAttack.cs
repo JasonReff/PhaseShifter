@@ -8,6 +8,7 @@ public abstract class CharacterAttack : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private AudioClip _attackSound;
     [SerializeField] protected WeaponStats _weaponStats;
+    protected Vector2 _attackDirection;
 
     public virtual void Attack(Vector2 attackDirection)
     {
@@ -18,13 +19,11 @@ public abstract class CharacterAttack : MonoBehaviour
             AudioManager.PlaySoundEffect(_attackSound);
     }
 
-    public abstract Vector2 AttackDirection();
-
     public void TryAttack()
     {
         if (_attackTimer <= 0)
         {
-            Attack(AttackDirection());
+            Attack(transform.forward);
             _attackTimer = _weaponStats.AttackCooldown;
             ChargeTime = 0;
         }

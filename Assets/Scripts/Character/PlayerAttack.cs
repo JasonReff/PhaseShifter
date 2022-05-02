@@ -18,23 +18,13 @@ public abstract class PlayerAttack : CharacterAttack
         _rb = GetComponentInParent<Rigidbody2D>();
     }
 
-    private void OnEnable()
-    {
-        _camera = Camera.main;
-    }
-
     public override void Attack(Vector2 attackDirection)
     {
         base.Attack(attackDirection);
         OnPlayerAttack?.Invoke();
     }
 
-    public override Vector2 AttackDirection()
-    {
-        Vector2 mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 fireDirection = mousePosition - (Vector2)transform.position;
-        return fireDirection.normalized;
-    }
+    
 
     protected virtual void MeleeAttack(Vector2 attackDirection, PlayerHealthController healthController, PunchStats stats)
     {

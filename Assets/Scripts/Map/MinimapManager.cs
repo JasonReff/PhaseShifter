@@ -50,8 +50,7 @@ public class MinimapManager : MonoBehaviour
 
     private void Update()
     {
-        _input.x = Input.GetAxisRaw("Horizontal");
-        _input.y = Input.GetAxisRaw("Vertical");
+        //get input
 
         if (_enlarged)
             _minimapVirtualCamera.ForceCameraPosition(_minimapCamera.transform.position + _input * Time.unscaledDeltaTime * _cameraMoveSpeed, Quaternion.identity);

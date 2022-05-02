@@ -38,7 +38,7 @@ public class CharacterMelee : PlayerAttack
             if (enemyHealth.Vulnerable)
             {
                 enemyHealth.TakeDamage(1);
-                enemyHealth.GetComponent<Rigidbody2D>().AddForce(base.AttackDirection() * _punchStats.Knockback * _stats.Stats.KnockbackMultiplier, ForceMode2D.Impulse);
+                enemyHealth.GetComponent<Rigidbody2D>().AddForce(_attackDirection * _punchStats.Knockback * _stats.Stats.KnockbackMultiplier, ForceMode2D.Impulse);
             }
         }
     }
